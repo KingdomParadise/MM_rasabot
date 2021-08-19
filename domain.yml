@@ -1,0 +1,235 @@
+version: "2.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - affirm_fcra
+  - affirm_edit
+  - deny_edit
+  - affirm_tribal
+  - deny_tribal
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - input_zip_code
+  - input_email
+  - customer_restart
+  - customer_help
+  - approve_continue
+  - FirstName
+  - MiddleName
+  - LastName
+  - Suffix
+  - DateOfBirth
+  - SocialSecurityNo
+  - ResidenceAddress
+  - Apartment
+  - ResidenceCity
+  - ResidenceState
+  - ResidenceZipCode
+  - life_line
+  - plan1
+  - plan2
+  - plan3
+  - English
+  - Spanish
+  - Korean
+  - Chinese
+  - Japanese
+  - Vietnamese
+  - More
+  - check_status
+  - affirm_application_status
+  - disclosure_continue
+  - affirm_disclosure
+  - deny_disclosure
+  - parent
+  - child
+  - otheradultrelative
+  - adultroommate
+  - otheradult
+  - noadults
+  - affirm_share_expenses
+  - deny_share_expenses
+  - get_pincode
+  - get_phone
+  - get_income
+entities:
+- zipcode 
+- email 
+- incomeamount
+- phonenumber
+slots:
+  zipcode:
+    type: text 
+    influence_conversation: true   
+  email:
+    type: text
+    influence_conversation: true  
+  ResidenceZipCode:
+    type: text
+    influence_conversation: true
+  ResidenceCity:
+    type: text
+    influence_conversation: true
+  ResidenceState:
+    type: text
+    influence_conversation: true   
+  ReservationUserCode:
+    type: text
+    influence_conversation: true
+  ReservationClientCode:
+    type: text
+    influence_conversation: true
+  ReservationVendorCode:
+    type: text
+    influence_conversation: true   
+  TribalEligible:
+    type: bool
+    influence_conversation: true   
+  FcraDisclosureText:
+    type: text
+    influence_conversation: true   
+  FcraAdditionalDisclosureText:
+    type: text
+    influence_conversation: true   
+  FcraAcknowledgement:
+    type: text
+    influence_conversation: true   
+  EligibiltyPrograms:
+    type: text
+    influence_conversation: true   
+  OrderNumber:
+    type: text
+    influence_conversation: true   
+  PackageId:
+    type: text    
+    influence_conversation: true   
+  TribalResident:
+    type: bool
+    influence_conversation: true
+  FirstName:
+    type: text
+    influence_conversation: true
+  MiddleName:
+    type: text
+    influence_conversation: true
+  LastName:
+    type: text
+    influence_conversation: true
+  Suffix:
+    type: text
+    influence_conversation: true
+  DateOfBirth:
+    type: text
+    influence_conversation: true
+  SocialSecurityNo:
+    type: text
+    influence_conversation: true
+  ResidenceAddress:
+    type: text
+    influence_conversation: true
+  Apartment:
+    type: text
+    influence_conversation: true  
+  Program:
+    type: text
+    influence_conversation: true             
+  edit_item:
+    type: text
+    influence_conversation: true
+  lifeline:
+    type: text
+    influence_conversation: true
+  plans:
+    type: list
+    influence_conversation: true 
+  language:
+    type: text
+    influence_conversation: true   
+  iehBool:
+    type: bool
+    influence_conversation: true
+  adultrelative:
+    type: text
+    influence_conversation: true
+  incomeamout:
+    type: text
+    influence_conversation: true
+  phonenumber:
+    type: text
+    influence_conversation: true
+  pincode:
+    type: text
+    influence_conversation: true 
+  phonesetting:
+    type: bool
+    influence_conversation: true 
+responses:
+  utter_greet:
+  - text: "Hello!👋 I am a bot and I'm here to help. What is your Zip Code?"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  utter_help:
+  - text: "An agent will reach out shortly! Thank you for your patience."
+
+
+  utter_send_link:
+  - text: "Multi-page Web Form [www.multiwebform.com] (http://127.0.0.1:5000/)" 
+
+  utter_send_ieh_link:
+  - text: "Disclosure Web App[www.disclosure.com] (http://127.0.0.1:5000/start)"
+
+actions:
+  - action_hello_world
+  - validate_zip_code
+  - validate_email
+  - configuration
+  - set_tribal_resident
+  - action_approve_offer_tribal
+  - edit_personal_info_check
+  - edit_personal_info_confirm
+  - edit_personal_info_select
+  - edit_personal_info_modify
+  - validate_name_address
+  - cgm_check
+  - life_line_plans
+  - life_line_plans_select
+  - select_language_es
+  - select_language_ck
+  - select_language_jv
+  - check_app_status 
+  - dis_closure_configuration
+  - pend_application_status
+  - ieh_select
+  - life_line_service
+  - share_living_expenses
+  - share_liveing_expenses_confirm
+  - provide_income_info
+  - provide_income_select
+  - submit_order
+  - select_best_way
+  - input_pincode_phone
+  - check_nv_eligibilty 
+  - end_chat
+  
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

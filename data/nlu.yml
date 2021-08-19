@@ -1,0 +1,404 @@
+version: "2.0"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - good afternoon
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+- intent: affirm_tribal
+  examples: |
+    - affirm_tribal
+    - affirmtribal
+    - Affirm_Tribal
+
+
+- intent: deny_tribal
+  examples: |
+    - deny_tribal
+    - denytribal   
+    - Deny_Tribal    
+
+
+- intent: affirm_edit
+  examples: |
+    - affirm_edit
+    - affirmedit
+    - Affirm_Edit
+
+
+- intent: deny_edit
+  examples: |
+    - deny_edit
+    - denyedit 
+    - DenyEdit    
+
+
+- intent: affirm_fcra
+  examples: |
+    - affirm_fcra
+    - affirmfcra
+    - Affirm_Fcra
+
+
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+
+- regex: zipcode
+  examples: |
+     - [0-9]{4,6}
+
+- intent: input_zip_code
+  examples:  |
+    - my zipcode is [12345](zipcode)
+    - [30134](zipcode) is my zipcode 
+    - [30135](zipcode)
+    - zipcode is [12312](zipcode)
+    - [32423](zipcode) is my zip code
+  
+- regex: email
+  examples:  |
+    - [a-z0-9\.\-+_]+@[a-z0-9\.\-+_]+\.[a-z]+
+
+- intent: input_email
+  examples:  |
+    - my email is [denea1288@gmail.com](email)
+    - [denea1288@gmail.com](email) is my email 
+    - [normanburtonfree@gmail.com](email)
+    - this is my email [hubamykytafree@gmail.com](email) 
+    - email is [andersonfree231@gmail.com](email)  
+    - email is [dasfadfaf@mail.com](email)
+    - [denea1288@gmail.com](email)
+- intent: customer_help
+  examples:  |
+    - customer_help
+    - customerhelp
+    
+- intent: customer_restart
+  examples:  |
+    - customer_restart
+    - customerrestart 
+
+- intent: approve_contiune  
+  examples:  |
+    - approve_continue
+    - approve_continues 
+
+- regex: FirstName
+  examples:  |
+    - [a-z0-9\.\-+_]
+
+- intent: FirstName
+  examples: |
+    - Mark Norman
+    - First Name 
+
+- regex: MiddleName
+  examples:  |
+    - [a-z0-9\.\-+_]
+
+- intent: MiddleName
+  examples: |
+    - middlename
+    - Middle Name 
+
+- regex: LastName
+  examples:  |
+    - [a-z0-9\.\-+_]
+
+- intent: LastName
+  examples: |
+    - Burton
+    - Last Name   
+
+- intent: Suffix
+  examples: |
+    - I
+    - II
+    - Jr
+    - Sr
+    - III
+    - IV
+- intent: DateOfBirth   
+  examples: |
+    - 10-02-1998
+    - 03-05-2001
+- intent: SocialSecurityNo   
+  examples: |
+    - 1234
+    - 4562
+- regex: ResidenceAddress
+  examples:  |
+    - [a-z0-9\.\-+_]
+- intent: ResidenceAddress   
+  examples: |
+    - MOSSIVE DRIVE STREET
+    - DRIVE STREET
+
+- regex: Apartment
+  examples:  |
+    - [a-z0-9\.\-+_]
+- intent: Apartment   
+  examples: |
+    - apart10
+    - aprartment 10
+
+- regex: ResidenceCity
+  examples:  |
+    - [a-z0-9\.\-+_]
+- intent: ResidenceCity   
+  examples: |
+    - Douglassive
+    - NewYork
+
+- regex: ResidenceState
+  examples:  |
+    - [a-z0-9\.\-+_]
+- intent: ResidenceState  
+  examples: |
+    - GA
+    - CA
+
+- regex: ResidenceZipCode
+  examples: |
+     - [0-9]{5}
+- intent: ResidenceZipCode  
+  examples: |
+    - 12345
+    - 39401
+
+- intent: life_line
+  examples: |
+    - life_line
+    - life_line_plans start!
+
+- intent: plan1
+  examples: |
+    - plan1
+    - plan1
+
+- intent: plan2
+  examples: |
+    - plan2
+    - plan2
+
+- intent: plan3
+  examples: |
+    - plan3
+    - plan3  
+- intent: English
+  examples: |
+    - english
+    - English
+
+- intent: Spanish
+  examples: |
+    - spanish
+    - Spanish
+
+- intent: Chinese
+  examples: |
+    - chinese
+    - Chinese
+
+- intent: Korean
+  examples: |
+    - korean
+    - Korean
+
+- intent: Japanese
+  examples: |
+    - Japanese
+    - japanese  
+
+- intent: Vietnamese
+  examples: |
+    - Vietnamese
+    - vietnamese   
+
+- intent: check_status
+  examples: |
+    - check_status
+    - Check Status
+
+- intent: More 
+  examples: |
+    - more 
+    - More   
+
+- intent: affirm_application_status
+  examples: |
+    - affirm_application_status
+    - Affirm_Application_Status  
+
+- intent: disclosure_continue
+  examples: |
+    - disclosure_continue
+    - disclosurecontinue
+- intent: affirm_disclosure
+  examples: |
+    - affirm_disclosure 
+    - affirmdisclosure
+
+- intent: deny_disclosure    
+  examples: |
+    - deny_disclosure
+    - denydisclosure
+- intent: parent 
+  examples: |
+    - parent 
+    - Parent
+- intent: child
+  examples: |
+    - child
+    - Child
+- intent: otheradultrelative
+  examples: |
+    - otheradultrelative
+    - OtherAdultRelative  
+- intent: adultroommate
+  examples: |
+    - adultroommate
+    - AdultRoommate
+- intent: otheradult 
+  examples: |
+    - otheradult
+    - OtherAdult 
+- intent: noadults
+  examples: |
+    - noadults
+    - NoAdults 
+
+- intent: affirm_share_expenses
+  examples: |
+    - affirm_share_expenses 
+    - Affirm_Share_Expenses
+
+- intent: deny_share_expenses
+  examples: |
+    - deny_share_expenses  
+    - Deny_Share_Expenses             
+
+- regex: income
+  examples: |
+     - [0-9]{1,9}
+- intent: get_income
+  examples: |
+    - income is [1234](income)
+    - [3941](income)
+    - [3452](income) is my income    
+
+- regex: phonenumber
+  examples: |
+     - [0-9]{10}
+- intent: get_phone
+  examples: |
+    - number is [123467890](phonenumber)
+    - [123467890](phonenumber)
+    - [123467890](phonenumber) is my phone number 
+
+- regex: pincode
+  examples: |
+     - [0-9]{4}
+
+- intent: get_pincode
+  examples: |
+    - pincode is [123467890](pincode)
+    - [123467890](pincode)
+    - [123467890](pincode) is my pin code 
+    
+- intent: phone
+  examples: |
+    - phone
+    - phone 
+
+- intent: gmail
+  examples: |
+    - gmail
+    - gmail 
+
+- intent: mail
+  examples: |
+    - mail
+    - mail         
