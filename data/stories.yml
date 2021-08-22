@@ -2,50 +2,12 @@ version: "2.0"
 
 stories:
 
-#- story: happy path
-#  steps:
-#  - intent: greet
-#  - action: utter_greet
-#  - intent: mood_great
-#  - action: action_hello_world
-
-#- story: sad path 1
-#  steps:
-#  - intent: greet
-#  - action: utter_greet
-#  - intent: mood_unhappy
-#  - action: utter_cheer_up
-#  - action: utter_did_that_help
-#  - intent: affirm
-#  - action: utter_happy
-
-#- story: sad path 2
-#  steps:
-#  - intent: greet
-#  - action: utter_greet
-#  - intent: mood_unhappy
-#  - action: utter_cheer_up
- # - action: utter_did_that_help
- # - intent: deny
- # - action: utter_goodbye
-
-- story: restart
-  steps:
-  - intent: customer_restart
-  - action: utter_greet
-  
-- story: help
-  steps:
-  - intent: customer_help
-  - action: utter_help
-
-
 - story: chatbot
   steps:
-  - intent: greet 
+  - intent: greet
   - action: utter_greet
-  - intent: input_zip_code
-  - action: validate_zip_code
+  - intent: input_zipcode
+  - action: validate_zipcode
   - intent: input_email
   - action: validate_email
   - action: configuration
@@ -68,7 +30,7 @@ stories:
     - intent: DateOfBirth
     - intent: SocialSecurityNo
     - intent: ResidenceAddress
-    - intent: Apartment
+    - intent: Apt_unit1
     - intent: ResidenceCity
     - intent: ResidenceState
     - intent: ResidenceZipCode
@@ -81,11 +43,12 @@ stories:
     - intent: DateOfBirth
     - intent: SocialSecurityNo
     - intent: ResidenceAddress
-    - intent: Apartment
+    - intent: Apt_unit1
     - intent: ResidenceCity
     - intent: ResidenceState
     - intent: ResidenceZipCode
   - action: edit_personal_info_modify
+
   - action: validate_name_address
   - intent: affirm_fcra
   - action: cgm_check
@@ -95,25 +58,29 @@ stories:
     - intent: plan2
     - intent: plan3
   - action: life_line_plans_select 
-  - or:
-    - intent: English
-    - intent: Spanish
-    - intent: More
-  - action: select_language_es
-  - or:
-    - intent: Chinese
-    - intent: Korean
-    - intent: More
-  - action: select_language_ck
-  - or:
-    - intent: Japanese
-    - intent: Vietnamese
-  - action: select_language_jv
-  - action: check_app_status 
-  - intent: check_status
-  - action: pend_application_status
+  - intent: wall
+  - action: check_application_status
+  - or: 
+    - intent: check_status
+    - intent: affirm_application_status
+    - intent: deny_application_status
+  - action: application_status_select
   - action: dis_closure_configuration
   - intent: disclosure_continue
+  - action: ieh_select
+  - intent: wall
+  - action: submit_order
+  - intent: wall
+  - action: select_best_way
+
+  - action: end_chat
+
+
+
+
+
+- story: iehSetting
+  steps:
   - action: ieh_select
   - or:
     - intent: affirm_disclosure
@@ -130,19 +97,64 @@ stories:
   - or:
     - intent: affirm_share_expenses
     - intent: deny_share_expenses  
-  - action: share_liveing_expenses_confirm    
+  - action: share_living_expenses_confirm    
   - action: submit_order
-  - intent: get_income
-  - action: provide_income_info
-  - action: provide_income_select
+
+
+
+
+
+
+
+#- story: edit_personal_info
+#  steps:
+#  - action: edit_personal_info_confirm
+#  - or:
+#    - intent: FirstName
+#    - intent: MiddleName
+#    - intent: LastName
+#    - intent: Suffix
+#    - intent: DateOfBirth
+#    - intent: SocialSecurityNo
+#    - intent: ResidenceAddress
+#    - intent: Apt_unit1
+#    - intent: ResidenceCity
+#    - intent: ResidenceState
+#    - intent: ResidenceZipCode
+#  - action: edit_personal_info_select
+#  - or:
+#    - intent: FirstName
+#    - intent: MiddleName
+#    - intent: LastName
+#    - intent: Suffix
+#    - intent: DateOfBirth
+#    - intent: SocialSecurityNo
+#    - intent: ResidenceAddress
+#    - intent: Apt_unit1
+#    - intent: ResidenceCity
+#    - intent: ResidenceState
+#    - intent: ResidenceZipCode
+#  - action: edit_personal_info_modify
+
+
+
+
+
+
+- story: set_language 
+  steps: 
   - or:
-    - intent: phone
-    - intent: gmail
-    - intent: mail
-  - action: select_best_way
+    - intent: English
+    - intent: Spanish
+    - intent: More
+  - action: select_language_es
   - or:
-    - intent: get_pincode
-    - intent: get_phone
-  - action: input_pincode_phone  
-  - action: check_nv_eligibilty
-  - action: end_chat
+    - intent: Chinese
+    - intent: Korean
+    - intent: More
+  - action: select_language_ck
+  - or:
+    - intent: Japanese
+    - intent: Vietnamese
+  - action: select_language_jv
+  - action: check_application_status 

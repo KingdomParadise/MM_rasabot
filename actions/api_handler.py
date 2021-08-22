@@ -1,4 +1,15 @@
 import requests
+def get_info(userid):
+	url = 'http://127.0.0.1:8000/get_info/{}'.format(userid)
+	res = requests.get(url).json()
+	print(res)
+	return res
+
+def get_ieh(user_id):
+	url = 'http://127.0.0.1:8000/get_ieh/{}'.format(userid)
+	res = requests.get(url).json()
+	print(res)
+	return res
 
 def validate_name_address(first_name,last_name,data,social,EligibiltyPrograms,Address,ResidenceCity,ResidenceState,ResidenceZip,PackageId,ReservationVendorCode,ReservationClientCode,ReservationUserCode):
 	validate_name_address_url = ' https://lifeline.cgmllc.net/api/v2/validatenameaddress'
@@ -124,4 +135,69 @@ def check_NladEbb_application_status(PackageId,last_four_social,first_name,last_
 		"Tribal" : TribalResident,
 	}
 	res = requests.post(Check_nv_application_Status_url,data = data).json()
+	return res    
+
+def submit_order_call(PackageId,EligibiltyPrograms,first_name,last_name,suffix,date,last_four_social,residential_address,ResidenceCity,ResidenceState,ResidenceZip,BestWayToReachYou,PhoneNumber,email):
+	submit_order_url = "https://lifeline.cgmllc.net/api/v2/submitorder"
+	data = {
+		"Token":"d3a1b634-90a7-eb11-a963-005056a96ce9",
+		"PackageID": PackageId,
+		"EligibilityProgram": EligibiltyPrograms,
+		"FirstName": first_name,
+		"LastName": last_name,
+		"NameSuffix": suffix,
+		"DateOfBirth": date,
+		"Ssn": last_four_social,
+		"ResidenceAddress01": residential_address,
+		"ResidenceCity": ResidenceCity,
+		"ResidenceState": ResidenceState,
+		"ResidenceZip": ResidenceZip,
+		"BestWayToReachYou": BestWayToReachYou,
+		"PhoneNumber": PhoneNumber,
+		"Email": email,
+	}
+	res = requests.post(submit_order_url,data = data).json()
+	return res	
+
+def check_nv_eligibilty(PackageId,last_four_social,first_name,last_name,date,residential_address,ResidenceCity,ResidenceState,ResidenceZip,TribalResident):
+	check_nv_eligibility_url  = "https://lifeline.cgmllc.net/api/v2/checknveligibility"    
+	data = {
+		"Token":"d3a1b634-90a7-eb11-a963-005056a96ce9",
+		"PackageID" : PackageId,
+		"SSN" : last_four_social,
+		"FirstName" : first_name,
+		"LastName" : last_name,
+		"DOB" : date,
+		"PrimaryAddress1" :residential_address,
+		"PrimaryCity" : ResidenceCity,
+		"PrimaryState": ResidenceState,
+		"PrimaryZip" : ResidenceZip,
+		"Tribal" : TribalResident,
+	}
+	res = requests.post(check_nv_eligibility_url,data = data).json()
+
+def get_lifeline_form(PackageId):
+	get_lifeline_url = "http://lifeline.cgmllc.net/api/v2/getlifelineform"    
+	data = {
+		'Token':"d3a1b634-90a7-eb11-a963-005056a96ce9",
+		'PackageID': PackageId,
+	}
+	#res = requests.post(get_lifeline_url,data = data).json()
+	return "Failure"
+
+def submit_service_type(PackageId,ServicePlan):
+	data = {
+	'Token' : "d3a1b634-90a7-eb11-a963-005056a96ce9",
+	'PackageID' : PackageId,
+	'ServicePlan' : ServicePlan
+	}
+	res = requests.post(submit_service_type_url,data = data).json()
+	return res
+
+def submit_service_status(PackageId):
+	data = {
+	'Token' : "d3a1b634-90a7-eb11-a963-005056a96ce9",
+	'PackageID' : PackageId,
+	}
+	res = requests.post(submit_service_status_url,data = data).json()
 	return res    
