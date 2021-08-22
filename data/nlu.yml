@@ -240,6 +240,10 @@ nlu:
   examples: |
     - more 
     - More   
+- intent: More_CK
+  examples: |
+    - moreck 
+    - Moreck       
 
 - intent: affirm_application_status
   examples: |
@@ -304,3 +308,65 @@ nlu:
   examples: |
     - wall
     - wall
+
+- intent: affirm_income
+  examples: |
+    - affirm_income
+    - affirm_Income
+
+- intent: deny_income
+  examples: |
+    - deny_income
+    - deny_Income        
+
+- intent: phone
+  examples: |
+    - phone
+    - phone 
+
+- intent: gmail
+  examples: |
+    - gmail
+    - gmail 
+
+- intent: mail
+  examples: |
+    - mail
+    - mail     
+
+- regex: income
+  examples: |
+     - [0-9]{1,9}
+- intent: get_income
+  examples: |
+    - income is [1234](income)
+    - [3941](income)
+    - [3452](income) is my income        
+
+- regex: phonenumber
+  examples: |
+     - [0-9]{9,11}
+- intent: get_phone_number
+  examples: |
+    - phonenumber is [1245634423](phonenumber)
+    - [39419870654](phonenumber)
+    - [3425345243](phonenumber) is my phonenumber        
+
+- regex: pin
+  examples: |
+     - [0-9]{1,9}
+- intent: get_pin
+  examples: |
+    - pin  is [1234](pin)
+    - [3941](pin)
+    - [3452](pin) is my pin        
+
+- intent: generate_new_link
+  examples: |
+    - generate_new_link
+    - generate_new_links
+
+- intent: continue_pending
+  examples: |
+    - continue_pending
+    - continue_pendings    

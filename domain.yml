@@ -34,6 +34,7 @@ intents:
   - Japanese
   - Vietnamese
   - More
+  - More_CK
   - check_status
   - affirm_application_status
   - deny_application_status
@@ -49,13 +50,29 @@ intents:
   - affirm_share_expenses
   - deny_share_expenses
   - wall
+  - phone
+  - gmail
+  - mail
+  - deny_income
+  - affirm_income
+  - get_income
+  - get_phone_number
+  - get_pin
+  - continue_pending
+  - generate_new_link
 entities:
 - ResidenceZipCode 
 - email
+- income
+- phonenumber
+- pin
 
 responses:
   utter_greet:
   - text: "Hello!👋 I am a bot and I'm here to help. What is your Zip Code?"
+
+  utter_help:
+  - text: "An agent will reach out shortly! Thank you for your patience."
 
   utter_goodbye:
   - text: "Bye"
@@ -132,15 +149,13 @@ slots:
     type: list 
   language:
     type: text 
-  iehBool:
-    type: bool
   adultrelative:
     type: text
-  incomeamout:
+  income:
     type: text
   phonenumber:
     type: text
-  pincode:
+  pin:
     type: text
   phonesetting:
     type: bool 
@@ -176,6 +191,15 @@ actions:
   - share_living_expenses_confirm
   - submit_order
   - select_best_way
+  - provide_income_info
+  - provide_income_select
+  - validate_number_code
+  - submit_order_call
+  - check_nv_eligibility
+  - get_lifeline_Form
+  - check_nv_select 
+  - verify_check_nv_eligibility 
+  - end_success
   - end_chat
 
 session_config:

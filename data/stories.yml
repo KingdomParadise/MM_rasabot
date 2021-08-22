@@ -18,36 +18,37 @@ stories:
     - intent: deny_tribal
   - action: action_approve_offer_tribal
   - action: edit_personal_info_check  
-  - or:
-    - intent: affirm_edit
-    - intent: deny_edit
-  - action: edit_personal_info_confirm
-  - or:
-    - intent: FirstName
-    - intent: MiddleName
-    - intent: LastName
-    - intent: Suffix
-    - intent: DateOfBirth
-    - intent: SocialSecurityNo
-    - intent: ResidenceAddress
-    - intent: Apt_unit1
-    - intent: ResidenceCity
-    - intent: ResidenceState
-    - intent: ResidenceZipCode
-  - action: edit_personal_info_select
-  - or:
-    - intent: FirstName
-    - intent: MiddleName
-    - intent: LastName
-    - intent: Suffix
-    - intent: DateOfBirth
-    - intent: SocialSecurityNo
-    - intent: ResidenceAddress
-    - intent: Apt_unit1
-    - intent: ResidenceCity
-    - intent: ResidenceState
-    - intent: ResidenceZipCode
-  - action: edit_personal_info_modify
+  - intent: deny_edit
+  #- or:
+  #  - intent: affirm_edit
+  #  - intent: deny_edit
+  #- action: edit_personal_info_confirm
+  #- or:
+  #  - intent: FirstName
+  #  - intent: MiddleName
+  #  - intent: LastName
+  #  - intent: Suffix
+  #  - intent: DateOfBirth
+  #  - intent: SocialSecurityNo
+  #  - intent: ResidenceAddress
+  #  - intent: Apt_unit1
+  #  - intent: ResidenceCity
+  #  - intent: ResidenceState
+  #  - intent: ResidenceZipCode
+  #- action: edit_personal_info_select
+  #- or:
+  #  - intent: FirstName
+  #  - intent: MiddleName
+  #  - intent: LastName
+  #  - intent: Suffix
+  #  - intent: DateOfBirth
+  #  - intent: SocialSecurityNo
+  #  - intent: ResidenceAddress
+  #  - intent: Apt_unit1
+  #  - intent: ResidenceCity
+  #  - intent: ResidenceState
+  #  - intent: ResidenceZipCode
+  #- action: edit_personal_info_modify
 
   - action: validate_name_address
   - intent: affirm_fcra
@@ -72,8 +73,61 @@ stories:
   - action: submit_order
   - intent: wall
   - action: select_best_way
-
+  - intent: wall
+  - action: submit_order_call
+  - intent: wall
+  - action: check_nv_eligibility
+  - or:
+    - intent: generate_new_link
+    - intent: continue_pending
+  - action: check_nv_select 
+  - action: get_lifeline_Form
+  - action: verify_check_nv_eligibility 
+  - action: end_success
+  
   - action: end_chat
+
+
+- story: input_pincode_phonenumber
+  steps:
+  - or:
+    - intent: mail
+    - intent: gmail
+    - intent: phone
+  - action: select_best_way
+  - or:
+    - intent: get_phone_number
+    - intent: get_pin
+  - action: validate_number_code
+  - intent: wall 
+
+
+- story: restart
+  steps:
+  - intent: customer_restart
+  - action: utter_greet
+  
+- story: help
+  steps:
+  - intent: customer_help
+  - action: utter_help
+  - action: end_chat
+
+
+
+
+
+
+
+- story: get_Income
+  steps:
+  - action: submit_order
+  - intent: get_income
+  - action: provide_income_info
+  - or:
+    - intent: affirm_income
+    - intent: deny_income
+  - action: provide_income_select  
 
 
 
@@ -106,35 +160,37 @@ stories:
 
 
 
-#- story: edit_personal_info
-#  steps:
-#  - action: edit_personal_info_confirm
-#  - or:
-#    - intent: FirstName
-#    - intent: MiddleName
-#    - intent: LastName
-#    - intent: Suffix
-#    - intent: DateOfBirth
-#    - intent: SocialSecurityNo
-#    - intent: ResidenceAddress
-#    - intent: Apt_unit1
-#    - intent: ResidenceCity
-#    - intent: ResidenceState
-#    - intent: ResidenceZipCode
-#  - action: edit_personal_info_select
-#  - or:
-#    - intent: FirstName
-#    - intent: MiddleName
-#    - intent: LastName
-#    - intent: Suffix
-#    - intent: DateOfBirth
-#    - intent: SocialSecurityNo
-#    - intent: ResidenceAddress
-#    - intent: Apt_unit1
-#    - intent: ResidenceCity
-#    - intent: ResidenceState
-#    - intent: ResidenceZipCode
-#  - action: edit_personal_info_modify
+- story: edit_personal_info
+  steps:
+  - action: edit_personal_info_check
+  - intent: affirm_edit
+  - action: edit_personal_info_confirm
+  - or:
+    - intent: FirstName
+    - intent: MiddleName
+    - intent: LastName
+    - intent: Suffix
+    - intent: DateOfBirth
+    - intent: SocialSecurityNo
+    - intent: ResidenceAddress
+    - intent: Apt_unit1
+    - intent: ResidenceCity
+    - intent: ResidenceState
+    - intent: ResidenceZipCode
+  - action: edit_personal_info_select
+  - or:
+    - intent: FirstName
+    - intent: MiddleName
+    - intent: LastName
+    - intent: Suffix
+    - intent: DateOfBirth
+    - intent: SocialSecurityNo
+    - intent: ResidenceAddress
+    - intent: Apt_unit1
+    - intent: ResidenceCity
+    - intent: ResidenceState
+    - intent: ResidenceZipCode
+  - action: edit_personal_info_modify
 
 
 
@@ -146,7 +202,7 @@ stories:
   - or:
     - intent: English
     - intent: Spanish
-    - intent: More
+    - intent: More_CK
   - action: select_language_es
   - or:
     - intent: Chinese
