@@ -1,0 +1,187 @@
+version: "2.0"
+
+stories:
+
+- story: chatbot
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: input_zipcode
+  - action: validate_zipcode
+  - intent: input_email
+  - action: validate_email
+  - action: configuration
+  - intent: approve_continue
+  - action: set_tribal_resident
+  - or:
+    - intent: affirm_tribal
+    - intent: deny_tribal
+  - action: action_approve_offer_tribal
+  - action: edit_personal_info_check  
+  - intent: deny_edit
+  - action: validate_name_address
+  - intent: affirm_fcra
+  - action: cgm_check
+  - action: life_line_plans
+  - or:
+    - intent: plan1
+    - intent: plan2
+    - intent: plan3
+  - action: life_line_plans_select 
+  - intent: wall
+  - action: check_application_status
+  - or: 
+    - intent: check_status
+    - intent: affirm_application_status
+    - intent: deny_application_status
+  - action: application_status_select
+  - action: dis_closure_configuration
+  - intent: disclosure_continue
+  - action: ieh_select
+  - intent: wall
+  - action: submit_order
+  - intent: wall
+  - action: select_best_way
+  - intent: wall
+  - action: submit_order_call
+  - intent: wall
+  - action: check_nv_eligibility
+  - or:
+    - intent: generate_new_link
+    - intent: continue_pending
+  - action: check_nv_select 
+  - action: get_lifeline_Form
+  - action: verify_check_nv_eligibility 
+  - action: end_success
+  - action: end_chat
+
+
+- story: input_pincode_phonenumber
+  steps:
+  - or:
+    - intent: Mail
+    - intent: Email
+    - intent: Phone
+  - action: select_best_way
+#  - or:
+#    - intent: get_phone_number
+#    - intent: get_pin
+  - action: validate_number_code
+  - intent: wall 
+
+
+- story: restart
+  steps:
+  - intent: customer_restart
+  - action: utter_greet
+  
+- story: help
+  steps:
+  - intent: customer_help
+  - action: utter_help
+  - action: end_chat
+
+- story: re_edit
+  steps:
+  - intent: National
+  - action: edit_personal_info_check
+
+
+
+
+
+- story: get_Income
+  steps:
+  - action: submit_order
+  - intent: get_income
+  - action: provide_income_info
+  - or:
+    - intent: affirm_income
+    - intent: deny_income
+  - action: provide_income_select  
+
+
+
+
+
+- story: iehSetting
+  steps:
+  - action: ieh_select
+  - or:
+    - intent: affirm_disclosure
+    - intent: deny_disclosure
+  - action: life_line_service
+  - or:
+    - intent: parent
+    - intent: child
+    - intent: otheradultrelative
+    - intent: adultroommate
+    - intent: otheradult
+    - intent: noadult
+  - action: share_living_expenses
+  - or:
+    - intent: affirm_share_expenses
+    - intent: deny_share_expenses  
+  - action: share_living_expenses_confirm    
+  - action: submit_order
+
+
+
+
+
+
+
+- story: edit_personal_info
+  steps:
+  - action: edit_personal_info_check
+  - intent: affirm_edit
+  - action: edit_personal_info_confirm
+  - or:
+    - intent: FirstName
+    - intent: MiddleName
+    - intent: LastName
+    - intent: Suffix
+    - intent: DateOfBirth
+    - intent: SocialSecurityNo
+    - intent: ResidenceAddress
+    - intent: Apt_unit1
+    - intent: ResidenceCity
+    - intent: ResidenceState
+    - intent: ResidenceZipCode
+  - action: edit_personal_info_select
+  - or:
+    - intent: FirstName
+    - intent: MiddleName
+    - intent: LastName
+    - intent: Suffix
+    - intent: DateOfBirth
+    - intent: SocialSecurityNo
+    - intent: ResidenceAddress
+    - intent: Apt_unit1
+    - intent: ResidenceCity
+    - intent: ResidenceState
+    - intent: ResidenceZipCode
+  - action: edit_personal_info_modify
+
+
+
+
+
+
+- story: set_language 
+  steps: 
+  - or:
+    - intent: English
+    - intent: Spanish
+    - intent: More_CK
+  - action: select_language_es
+  - or:
+    - intent: Chinese
+    - intent: Korean
+    - intent: More
+  - action: select_language_ck
+  - or:
+    - intent: Japanese
+    - intent: Vietnamese
+  - action: select_language_jv
+  - action: check_application_status 
