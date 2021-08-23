@@ -123,7 +123,7 @@ def check_NladEbb_application_status(PackageId,last_four_social,first_name,last_
 		"PrimaryZip" : ResidenceZip,
 		"Tribal" : TribalResident,
 	}
-	res = requests.post(Check_NladEbbApplication_status_url,data = data).json()
+	res = requests.post(check_nladebb_application_status_url,data = data).json()
 	return res
 
 def check_nv_application_status(PackageId,last_four_social,first_name,last_name,date,residential_address,ResidenceCity,ResidenceState,ResidenceZip,TribalResident):
@@ -164,27 +164,17 @@ def submit_order_call(PackageId,EligibiltyPrograms,first_name,last_name,suffix,d
 		"PhoneNumber": PhoneNumber,
 		"Email": email,
 	}
-	print(data)
 	res = requests.post(submit_order_url,data = data).json()
-	print(res)
 	return res	
 
-def check_nv_eligibilty(PackageId,last_four_social,first_name,last_name,date,residential_address,ResidenceCity,ResidenceState,ResidenceZip,TribalResident):
+def check_nv_eligibilty(PackageId):
 	check_nv_eligibility_url  = "https://lifeline.cgmllc.net/api/v2/checknveligibility"    
 	data = {
 		"Token":"d3a1b634-90a7-eb11-a963-005056a96ce9",
 		"PackageID" : PackageId,
-		"SSN" : last_four_social,
-		"FirstName" : first_name,
-		"LastName" : last_name,
-		"DOB" : date,
-		"PrimaryAddress1" :residential_address,
-		"PrimaryCity" : ResidenceCity,
-		"PrimaryState": ResidenceState,
-		"PrimaryZip" : ResidenceZip,
-		"Tribal" : TribalResident,
 	}
 	res = requests.post(check_nv_eligibility_url,data = data).json()
+	return res
 
 def get_lifeline_form(PackageId):
 	get_lifeline_url = "http://lifeline.cgmllc.net/api/v2/getlifelineform"    

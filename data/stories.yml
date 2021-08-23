@@ -58,6 +58,7 @@ stories:
 
 - story: input_pincode_phonenumber
   steps:
+  - action: submit_order
   - or:
     - intent: Mail
     - intent: Email
