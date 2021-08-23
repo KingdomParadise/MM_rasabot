@@ -19,37 +19,6 @@ stories:
   - action: action_approve_offer_tribal
   - action: edit_personal_info_check  
   - intent: deny_edit
-  #- or:
-  #  - intent: affirm_edit
-  #  - intent: deny_edit
-  #- action: edit_personal_info_confirm
-  #- or:
-  #  - intent: FirstName
-  #  - intent: MiddleName
-  #  - intent: LastName
-  #  - intent: Suffix
-  #  - intent: DateOfBirth
-  #  - intent: SocialSecurityNo
-  #  - intent: ResidenceAddress
-  #  - intent: Apt_unit1
-  #  - intent: ResidenceCity
-  #  - intent: ResidenceState
-  #  - intent: ResidenceZipCode
-  #- action: edit_personal_info_select
-  #- or:
-  #  - intent: FirstName
-  #  - intent: MiddleName
-  #  - intent: LastName
-  #  - intent: Suffix
-  #  - intent: DateOfBirth
-  #  - intent: SocialSecurityNo
-  #  - intent: ResidenceAddress
-  #  - intent: Apt_unit1
-  #  - intent: ResidenceCity
-  #  - intent: ResidenceState
-  #  - intent: ResidenceZipCode
-  #- action: edit_personal_info_modify
-
   - action: validate_name_address
   - intent: affirm_fcra
   - action: cgm_check
@@ -84,20 +53,19 @@ stories:
   - action: get_lifeline_Form
   - action: verify_check_nv_eligibility 
   - action: end_success
-  
   - action: end_chat
 
 
 - story: input_pincode_phonenumber
   steps:
   - or:
-    - intent: mail
-    - intent: gmail
-    - intent: phone
+    - intent: Mail
+    - intent: Email
+    - intent: Phone
   - action: select_best_way
-  - or:
-    - intent: get_phone_number
-    - intent: get_pin
+#  - or:
+#    - intent: get_phone_number
+#    - intent: get_pin
   - action: validate_number_code
   - intent: wall 
 
@@ -113,7 +81,10 @@ stories:
   - action: utter_help
   - action: end_chat
 
-
+- story: re_edit
+  steps:
+  - intent: National
+  - action: edit_personal_info_check
 
 
 

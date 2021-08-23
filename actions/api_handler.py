@@ -1,17 +1,18 @@
 import requests
 def get_info(userid):
+	print('http://127.0.0.1:8000/get_info/{}'.format(userid))
 	url = 'http://127.0.0.1:8000/get_info/{}'.format(userid)
 	res = requests.get(url).json()
 	print(res)
 	return res
 
-def get_ieh(user_id):
+def get_ieh(userid):
 	url = 'http://127.0.0.1:8000/get_ieh/{}'.format(userid)
 	res = requests.get(url).json()
 	print(res)
 	return res
 
-def validate_name_address(first_name,last_name,data,social,EligibiltyPrograms,Address,ResidenceCity,ResidenceState,ResidenceZip,PackageId,ReservationVendorCode,ReservationClientCode,ReservationUserCode):
+def validate_name_address(first_name,last_name,date,social,EligibiltyPrograms,Address,ResidenceCity,ResidenceState,ResidenceZip,PackageId,ReservationVendorCode,ReservationClientCode,ReservationUserCode):
 	validate_name_address_url = ' https://lifeline.cgmllc.net/api/v2/validatenameaddress'
 	data = {
 		'FirstName': first_name,
@@ -41,7 +42,7 @@ def check_duplicate_customers(PackageId,FirstName,LastName,DateOfBirth,Ssn,Resid
 		"LastName": LastName,
 		"DateOfBirth": DateOfBirth,
 		"Ssn": Ssn,
-		"ResidenceAddress01": ResidenceAddress01ce,
+		"ResidenceAddress01": ResidenceAddress01,
 		"ResidenceCity": ResidenceCity,
 		"ResidenceState": ResidenceState,
 		"ResidenceZip": ResidenceZip
@@ -55,7 +56,7 @@ def coverage_check(PackageId,TribalResident,ResidenceAddress01,ResidenceCity,Res
 		"Token": "d3a1b634-90a7-eb11-a963-005056a96ce9",
 		"PackageID": PackageId,
 		"Tribal": TribalResident,
-		"ResidenceAddress01": residential_address,
+		"ResidenceAddress01": ResidenceAddress01,
 		"ResidenceCity": ResidenceCity,
 		"ResidenceState": ResidenceState,
 		"ResidenceZip": ResidenceZip
@@ -63,8 +64,8 @@ def coverage_check(PackageId,TribalResident,ResidenceAddress01,ResidenceCity,Res
 	res = requests.post(coverage_check_url,data=data).json() 
 	return res   
 
-def conform_state_eligibilty(PackageId,FirstName,LastName,DateOfBirth,Social,ResidenceAddress01,ResidenceCity,ResidenceState,ResidenceZip,TribalResident,Program):
-	confirm_sate_url = 'https://lifeline.cgmllc.net/api/v2/confirmstateeligibility'  
+def confirm_state_eligibility(PackageId,FirstName,LastName,DateOfBirth,Social,ResidenceAddress01,ResidenceCity,ResidenceState,ResidenceZip,TribalResident,Program):
+	confirm_state_url = 'https://lifeline.cgmllc.net/api/v2/confirmstateeligibility'  
 	data = {
 		"Token": "d3a1b634-90a7-eb11-a963-005056a96ce9",
 		"PackageID": PackageId,
@@ -91,13 +92,19 @@ def lifeline_plan(PackageId,ResidenceState,ResidenceZip,TribalResident):
 		"Zip" : ResidenceZip,
 		"Tribal" : TribalResident
 	}
+	plan = []
 	res = requests.post(life_line_url,data=data).json()
 	if res['Status'] == "Success":
-		for i in range(0,len(res['LifelinePlans'])):
+		count = 0
+		if len(res['LifelinePlans'])>3:
+			count = 3
+		else:
+			count = len(res['LifelinePlans'])	
+		for i in range(count):
 			mid=(str(res['LifelinePlans'][i]["Name"]))
 			plan.append(mid)
 			
-			return plan
+		return plan
 	else:
 			return None
 
@@ -116,10 +123,10 @@ def check_NladEbb_application_status(PackageId,last_four_social,first_name,last_
 		"PrimaryZip" : ResidenceZip,
 		"Tribal" : TribalResident,
 	}
-	res = requests.post(Check_NladEbbApplication_Status_url,data = data).json()
+	res = requests.post(Check_NladEbbApplication_status_url,data = data).json()
 	return res
 
-def check_NladEbb_application_status(PackageId,last_four_social,first_name,last_name,date,residential_address,ResidenceCity,ResidenceState,ResidenceZip,TribalResident):
+def check_nv_application_status(PackageId,last_four_social,first_name,last_name,date,residential_address,ResidenceCity,ResidenceState,ResidenceZip,TribalResident):
 	check_nv_application_status_url = "https://lifeline.cgmllc.net/api/v2/CheckNVApplicationstatus"
 	data = {
 		"Token":"d3a1b634-90a7-eb11-a963-005056a96ce9",
@@ -134,7 +141,8 @@ def check_NladEbb_application_status(PackageId,last_four_social,first_name,last_
 		"PrimaryZip" : ResidenceZip,
 		"Tribal" : TribalResident,
 	}
-	res = requests.post(Check_nv_application_Status_url,data = data).json()
+	res = requests.post(check_nv_application_status_url,data = data).json()
+	print(res)
 	return res    
 
 def submit_order_call(PackageId,EligibiltyPrograms,first_name,last_name,suffix,date,last_four_social,residential_address,ResidenceCity,ResidenceState,ResidenceZip,BestWayToReachYou,PhoneNumber,email):
@@ -156,7 +164,9 @@ def submit_order_call(PackageId,EligibiltyPrograms,first_name,last_name,suffix,d
 		"PhoneNumber": PhoneNumber,
 		"Email": email,
 	}
+	print(data)
 	res = requests.post(submit_order_url,data = data).json()
+	print(res)
 	return res	
 
 def check_nv_eligibilty(PackageId,last_four_social,first_name,last_name,date,residential_address,ResidenceCity,ResidenceState,ResidenceZip,TribalResident):

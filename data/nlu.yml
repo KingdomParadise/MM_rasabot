@@ -157,7 +157,7 @@ nlu:
 #- regex: Apartment
 #  examples:  |
 #    - [a-z0-9\.\-+_]
-- intent: Apart_ment   
+- intent: Apt_unit1  
   examples: |
     - apart10
     - aprartment 10
@@ -307,7 +307,7 @@ nlu:
 - intent: wall
   examples: |
     - wall
-    - wall
+    - walls
 
 - intent: affirm_income
   examples: |
@@ -319,19 +319,19 @@ nlu:
     - deny_income
     - deny_Income        
 
-- intent: phone
+- intent: Phone
   examples: |
-    - phone
-    - phone 
+    - Phone
+    - Phone 
 
-- intent: gmail
+- intent: Email
   examples: |
-    - gmail
-    - gmail 
+    - Email
+    - email 
 
-- intent: mail
+- intent: Mail
   examples: |
-    - mail
+    - Mail
     - mail     
 
 - regex: income
@@ -370,3 +370,8 @@ nlu:
   examples: |
     - continue_pending
     - continue_pendings    
+
+- intent: National
+  examples: |
+    - National
+    - national

@@ -50,9 +50,9 @@ intents:
   - affirm_share_expenses
   - deny_share_expenses
   - wall
-  - phone
-  - gmail
-  - mail
+  - Phone
+  - Email
+  - Mail
   - deny_income
   - affirm_income
   - get_income
@@ -60,6 +60,7 @@ intents:
   - get_pin
   - continue_pending
   - generate_new_link
+  - National
 entities:
 - ResidenceZipCode 
 - email

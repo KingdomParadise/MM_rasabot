@@ -24,7 +24,6 @@ class ActionValidateZipCode(Action):
 		print("-->validate zipcode")
 		zipcode = tracker.get_slot('ResidenceZipCode')
 		ResidenceZipCode = tracker.get_slot('ResidenceZipCode')
-		print(zipcode)
 		if tracker.get_slot('isemail')==False:
 			return []
 		if zipcode!=None and len(zipcode) == 5:
@@ -32,8 +31,6 @@ class ActionValidateZipCode(Action):
 			if current['status'] == 'OK':
 				dispatcher.utter_message( text = "Great! That was a valid zip code! 🎉.")
 				dispatcher.utter_message( text = "Please enter your email address? (Ex: example@mail.com) 💬")
-				print(current['results'][0]['address_components'][1]['short_name'])
-				print(current['results'][0]['address_components'][2]['short_name'])
 				return [SlotSet("ResidenceZipCode", zipcode), SlotSet("ResidenceCity", current['results'][0]['address_components'][1]['short_name']), SlotSet("ResidenceState", current['results'][0]['address_components'][2]['short_name'])]
 			else:
 				dispatcher.utter_message( text = "That Zip Code was not valid.")     
@@ -48,21 +45,13 @@ class ActionValidateEmail(Action):
 
 	def run(self, dispatcher, tracker, domain):
 		print("--->email validation")
-		print(tracker.get_slot('ResidenceZipCode'))
-		print(tracker.get_slot('ResidenceState'))
-		print(tracker.get_slot('ResidenceCity'))
 		email = tracker.get_slot('email')
 		print(email)
-		#response = requests.get("https://isitarealemail.com/api/email/validate", params = {'email': email})
-		#tatus = response.json()['status']
-		status = ''
-		if email=="denea1288@gmail.com":
-			status = 'valid'
-		
+		response = requests.get("https://isitarealemail.com/api/email/validate", params = {'email': email})
+		status = response.json()['status']
 		if status=='valid':
 			dispatcher.utter_message( text = "Thank You! This will just take a few seconds You are on your way to a FREE phone!📱")
 			return [SlotSet("isemail",True)]
-		#input the email validation
 		else:
 			dispatcher.utter_message( text = "That email address was not valid. Please enter a working email address. (Ex: example@mail.com)")   
 			return [SlotSet("isemail",False)]
@@ -83,19 +72,9 @@ class ActionConfiguration(Action):
 		isemail = tracker.get_slot('isemail')
 		if isemail==False:
 			return [FollowupAction("validate_zipcode")]
-		#remove in the future############
-		#dispatcher.utter_message( text = "CGM Checks successful")
-		#letters = string.ascii_lowercase
-		#userid = ''.join(random.choice(letters) for i in range(10))
-		#buttons = [
-		#	{"payload": "/approve_continue", "title": "continue"},
-		#] 
+		letters = string.ascii_lowercase
+		userid = ''.join(random.choice(letters) for i in range(10))
 
-		#dispatcher.utter_message(text = "Multi-page Web Form [www.multiwebform.com] (http://127.0.0.1:8000/submit_info/{})".format(userid),buttons=buttons)
-						
-		#return [SlotSet("userid",userid),SlotSet("ReservationUserCode","MazamaProdIWI"),SlotSet("ReservationClientCode","IWI"),SlotSet("ReservationVendorCode","QUAL"),SlotSet("OrderNumber","32654776"),SlotSet("PackageId","bdabe113-00fb-eb11-a965-005056a96ce9"),SlotSet("TribalEligible",False),SlotSet("Program","135p"),SlotSet("FcraDisclosureText","FcraDisclosureText"),SlotSet("FcraAdditionalDisclosureText","FcraAdditionalDisclosureText"),SlotSet("FcraAcknowledgement","FcraAcknowledgement")]
-						
-		########################
 		res = requests.post(check_avaliability_url, data={'Token':token,'ZipCode':zipcode,'Email':email}).json() 
 
 		if res['Status']=='Success':
@@ -120,23 +99,21 @@ class ActionConfiguration(Action):
 							] 
 						dispatcher.utter_message(response = 'utter_send_link',buttons=buttons)
 						
-						return [SlotSet("ReservationUserCode",res_user_configuration['ReservationUserCode']),SlotSet("ReservationClientCode",res_user_configuration['ReservationClientCode']),SlotSet("ReservationVendorCode",res_user_configuration['ReservationVendorCode']),SlotSet("OrderNumber",res_start_order['OrderNumber']),SlotSet("PackageId",res_start_order['PackageId']),SlotSet("TribalEligible",res_state_configuration['TribalEligible']),SlotSet("Program",res_state_configuration['EligibiltyPrograms'][0]['Code']),SlotSet("FcraDisclosureText",res_state_configuration['FcraDisclosureText']),SlotSet("FcraAdditionalDisclosureText",res_state_configuration['FcraAdditionalDisclosureText']),SlotSet("FcraAcknowledgement",res_state_configuration['FcraAcknowledgement'])]
-							 
-						#print (res_user_configuration['ReservationUserCode'],res_user_configuration['ReservationClientCode'],res_user_configuration['ReservationVendorCode'],res_start_order['OrderNumber'],res_start_order['PackageId'],res_state_configuration['TribalEligible'],res_state_configuration['EligibiltyPrograms'][0]['Code'],res_state_configuration['FcraDisclosureText'],res_state_configuration['FcraAdditionalDisclosureText'],res_state_configuration['FcraAcknowledgement'])
-			else:
-				buttons = [
-						{"payload": "/customer_help", "title": "Do you need help?"},
-						{"payload": "/customer_restart", "title": "Do you restart?"},
-					] 
-				dispatcher.utter_message( text = "Oh no! Our system is having trouble with your application",buttons = buttons)
-				return [SlotSet('ResidenceZipCode',None)]        
+						return [SlotSet("userid",userid),SlotSet("ReservationUserCode",res_user_configuration['ReservationUserCode']),SlotSet("ReservationClientCode",res_user_configuration['ReservationClientCode']),SlotSet("ReservationVendorCode",res_user_configuration['ReservationVendorCode']),SlotSet("OrderNumber",res_start_order['OrderNumber']),SlotSet("PackageId",res_start_order['PackageId']),SlotSet("TribalEligible",res_state_configuration['TribalEligible']),SlotSet("EligibiltyPrograms",res_state_configuration['EligibiltyPrograms'][0]['Code']),SlotSet("FcraDisclosureText",res_state_configuration['FcraDisclosureText']),SlotSet("FcraAdditionalDisclosureText",res_state_configuration['FcraAdditionalDisclosureText']),SlotSet("FcraAcknowledgement",res_state_configuration['FcraAcknowledgement'])]
+					buttons = [
+							{"payload": "/customer_help", "title": "Do you need help?"},
+							{"payload": "/customer_restart", "title": "Do you restart?"},
+						] 
+					dispatcher.utter_message( text = "Oh no! Our system is having trouble with your application",buttons = buttons)
+					return [SlotSet('ResidenceZipCode',None)]        
 
 		else:  
 			buttons = [
 					{"payload": "/customer_restart", "title": "Do you restart?"},
 				] 
 			dispatcher.utter_message( text = "Sorry! We currently do not offer any service plans for the"+zipcode+"area.",buttons = buttons)
-			return [SlotSet('ResidenceZipCode',None)] 			
+			return [SlotSet('ResidenceZipCode',None)]
+
 #######################flowchart4###########################
 class ActionApproveOfferTribal(Action):
 	def name(self):
@@ -154,9 +131,6 @@ class ActionNationalVerfication(Action):
 
 	def run(self,dispatcher,tracker,domain):
 		tribalEligible = tracker.get_slot('TribalEligible')
-		# remove in the future  
-		#tribalEligible = False
-		#
 		if tribalEligible==True:
 			buttons = [
 			{"payload": "/affirm_tribal", "title": "Yes"},
@@ -201,16 +175,13 @@ class ActionEditPersonalInfoCheck(Action):
 			text+=("City : "+tracker.get_slot('ResidenceCity'))
 			text+=("State : " +tracker.get_slot('ResidenceState'))
 			text+=("ZipCode : "+tracker.get_slot('ResidenceZipCode'))
-
 			text+="Make sure to click `Continue Application` if all of your information is correct"	
-
 			buttons = [{"payload":"/affirm_edit","title":"Let me think"},
 					   {"payload":"/deny_edit","title":"Continue Application"}
 						]			
-
 			dispatcher.utter_message ( text = text, buttons = buttons)
-
 			return[]	
+
 class ActionEditPersonalInfoConfirm(Action):
 	def name(self):
 		return "edit_personal_info_confirm"
@@ -241,7 +212,6 @@ class ActionEditPersonalInfoSelect(Action):
 	def run(self,dispatcher,tracker,domain):
 		print("edit_personal_info_select")
 		message = tracker.latest_message['text']
-		message = message[1:].strip("_")
 		print("select->",message)	
 		dispatcher.utter_message( text = "Please enter the value")
 		return [SlotSet("edit_item",message)]
@@ -282,6 +252,7 @@ class ActionValidateNameAddress(Action):
 		#you have to change status into res['status'] in the future
 		status = res['status']
 		####################################
+		#status = "Success"
 		if status=="Success":
 			if state=="CA":
 				buttons = [
@@ -328,18 +299,16 @@ class ActionCGMCheck(Action):
 		eligibility = confirm_state_eligibility(PackageId,FirstName,LastName,DateOfBirth,SocialSecurityNo,ResidenceAddress01,ResidenceCity,ResidenceState,ResidenceZip,TribalResident,Program)
 		reply = ""
 		if res['Status']=="Success":
-		    if cover["Status"]=="Success":
-		        if cover['Coverage'] == True:
-		            reply = "Pass"
-		        else:
-		            reply = "No-Pass" 
+			if cover["Status"]=="Success":
+				if cover['Coverage'] == True:
+					reply = "Pass"
+				else:
+					reply = "No-Pass" 
+			else:
+				reply = "error"		
 		else:
 			reply = "error"
-		eli = eligibility['Statuss']
-		#remove these in the future
-		#reply = "Pass"
-		#eli = "Success"
-		#
+		eli = eligibility['Status']
 		if reply=="error":
 			buttons = [{"payload":"custom_help","title":"help"}]
 			dispatcher.utter_message( text = "Oh no! Our system is having trouble with your request",buttons = buttons) 
@@ -368,8 +337,6 @@ class ActionlifeLinePlans(Action):
 		TribalResident = tracker.get_slot('TribalResident')
 		#uncommit in the future
 		res = lifeline_plan(PackageId,ResidenceState,ResidenceZip,TribalResident)
-		#remove in the future
-		#res = ["plan10","plan20","plan30"]
 		if res!=None:
 			buttons = []
 			for i in range(len(res)):
@@ -457,9 +424,9 @@ class ActionCheckApplicationStatus(Action):
 		TribalResident = tracker.get_slot("TribalResident")
 		#uncommit in the future
 		if ResidenceState=="CA":
-			res = check_NladEbb_application_status(PackageId,last_four_social,first_name,last_name,date,residential_address,ResidenceCity,ResidenceState,ResidenceZip,TribalResident)
+			res = check_NladEbb_application_status(PackageId,last_four_social,first_name,last_name,date,residence_address,ResidenceCity,ResidenceState,ResidenceZip,TribalResident)
 		else:
-			res	= check_NladEbb_application_status(PackageId,last_four_social,first_name,last_name,date,residential_address,ResidenceCity,ResidenceState,ResidenceZip,TribalResident)
+			res	= check_NladEbb_application_status(PackageId,last_four_social,first_name,last_name,date,residence_address,ResidenceCity,ResidenceState,ResidenceZip,TribalResident)
 
 		#uncommit in the future
 		if "ApplicationStatus" in res.keys():
@@ -477,21 +444,6 @@ class ActionCheckApplicationStatus(Action):
 		else: 
 		    	return[FollowupAction(dis_closure_configuration)]
 
-		#remove in the future#########################
-		#application_status = "ApplicationNotComplete"
-	   
-		#if application_status == "ApplicationPending":
-		#	buttons = [{"payload":"/check_status","title":"Check Status"}]
-		#	dispatcher.utter_message( text = "Your application is still being processed by the National verifier! Click here to check its status.")
-		#	return[]
-
-		#elif application_status == "ApplicationNotComplete" or application_status == "ApplicationNotFound":
-		#		return[FollowupAction("dis_closure_configuration")]   
-		#else:
-		#	buttons = [{"payload":"/affirm_application_status","title":"Yes"},{"payload":"/deny_application_status","title":"No"}]
-		#	dispatcher.utter_message( text = "We noticed that you are already receiving a  Lifeline benefit from another provider. Would you like to transfer your service provider to Access Wireless? 😊",buttons = buttons)
-		#	return[]
-		#####################
 class ActionApplicationStatus_Select(Action):
 	def name(self):
 		return "application_status_select"
@@ -526,10 +478,7 @@ class ActionIehSelect(Action):
 		print("ieh_select")
 		#uncommit in the future
 		iehBool = get_ieh(tracker.get_slot("userid"))['ieh']
-		#####################
-		#remove in the future
-		#iehBool = True
-		#iehBool = tracker.get_slot("ieh")
+
 		if iehBool==True:
 			buttons = [{"payload":"/affirm_disclosure","title":"Yes"},{"payload":"/deny_disclosure","title":"No"}]
 			dispatcher.utter_message(text = "Does your spouse or domestic partner live with you AND already receive LifeLine phone service? Select NO if you do not have a spouse or partner.Select NO if your spouse or partner does not live with you.Select NO if your spouse or partner does not receive lifeline phone service?",buttons = buttons)
@@ -606,13 +555,13 @@ class ActionSubmitOrder(Action):
 			dispatcher.utter_message(text = "What is the best way to reach you? Click one of the options below",buttons = buttons)
 
 			return[FollowupAction("select_best_way")]
-			#return[]
 
 class ActionProvideIncomeInfo(Action):
 	def name(self):
 		return "provide_income_info"
 	def run(self,dispatcher,tracker,domain):
 		print("provide_income_info")
+		print(tracker.get_slot('income'))
 		buttons = [{"payload":"/affirm_income","title":"Yes"},{"payload":"/deny_income","title":"No"}]
 		dispatcher.utter_message( text = "Do you have more income information to provide?",buttons = buttons)
 		return[]
@@ -626,7 +575,7 @@ class ActionProvideIncomeSelect(Action):
 		if message == "/affirm_income":
 			return [FollowupAction("submit_order")]			
 		else:
-			buttons = [{"payload":"/phone","title":"Phone"},{"payload":"/mail","title":"Email"},{"payload":"/gmail","title":"Gmail"}]
+			buttons = [{"payload":"/Phone","title":"Phone"},{"payload":"/Email","title":"Email"},{"payload":"/Mail","title":"Mail"}]
 			dispatcher.utter_message(text = "What is the best way to reach you? Click one of the options below",buttons = buttons)
 			return[FollowupAction("select_best_way")]
 
@@ -636,12 +585,12 @@ class ActionSelectBestWay(Action):
 	def run(self,dispatcher,tracker,domain):
 		print("select_best_way")
 		message = tracker.latest_message['text']
-		if message=="/phone":
+		if message=="/Phone":
 			dispatcher.utter_message(text = "What is your phone number? 📱It can look like this: 5417901356 (ex: phonenumber is XXXXXXXXXX)")
 			return[SlotSet("BestWayToReachYou","phone"),SlotSet("phonesetting",True)]
-		elif message=="/mail" or message=="/gmail":
+		elif message=="/Mail" or message=="/Email":
 			dispatcher.utter_message(text = "Please make a four digit PIN for your application(ex:pin  is xxxx)")
-			return[SlotSet("BestWayToReachYou",message[1:]),SlotSet("phonesetting",False)]	
+			return[SlotSet("BestWayToReachYou",message[1:].lower()),SlotSet("phonesetting",False)]	
 
 class ActionEnterCode(Action):
 	def name(self):
@@ -652,8 +601,8 @@ class ActionEnterCode(Action):
 
 		phonenumber = tracker.get_slot("phonenumber")
 		pin = tracker.get_slot("pin")
-		print(phonenumber)
-		print(pin)
+
+		return[SlotSet("phonenumber","1234567890"),SlotSet("pin","9876"),FollowupAction("submit_order_call")]
 		setting = tracker.get_slot("phonesetting")
 		if setting == True:
 			if len(phonenumber)==10:
@@ -691,19 +640,15 @@ class ActionSubmitOrederCall(Action):
 		BestWayToReachYou = tracker.get_slot("BestWayToReachYou")
 		PhoneNumber = tracker.get_slot("phonenumber")
 		email = tracker.get_slot("email")
-		#########uncommit in the future
+
 		res = submit_order_call(PackageId,EligibiltyPrograms,first_name,last_name,suffix,date,last_four_social,residential_address,ResidenceCity,ResidenceState,ResidenceZip,BestWayToReachYou,PhoneNumber,email)
-		##########################
 
 		if res['Status']=="Success":
-		########################################
-		#########remove in the future
-		#status = "Success"
-		#if status=="Success":
-		########################	
+
 			return [FollowupAction("check_nv_eligibility")]
 		else:
-			buttons = [{"payload":"/customer_help","title":"Do yo u need help"},{"payload":"/customer_restart","title":"Do you restart?"},{"payload":"/National","title":""}]
+			#buttons = [{"payload":"/customer_help","title":"Do yo u need help"},{"payload":"/customer_restart","title":"Do you restart?"},{"payload":"/National","title":"National Questions"}]
+			buttons = [{"payload":"/customer_help","title":"Do yo u need help"},{"payload":"/customer_restart","title":"Do you restart?"}]
 			dispatcher.utter_message("Oh no! Your order failed:[INPUT ERROR MESSAGE] How would you like to proceed?")
 			return []
 
@@ -717,15 +662,19 @@ class ActionCheckNvEligibility(Action):
 		last_name = tracker.get_slot("LastName")
 		date = tracker.get_slot("DateOfBirth")
 		last_four_social = tracker.get_slot("SocialSecurityNo")
-		residential_address = tracker,get_slot("ResidenceAddress")
+		residential_address = tracker.get_slot("ResidenceAddress")
 		ResidenceCity = tracker.get_slot("ResidenceCity")
 		ResidenceState = tracker.get_slot("ResidenceState")
 		ResidenceZip = tracker.get_slot("ResidenceZipCode")
 		TribalResident = tracker.get_slot("TribalResident")
+
 		response = check_nv_eligibilty(PackageId,last_four_social,first_name,last_name,date,residential_address,ResidenceCity,ResidenceState,ResidenceZip,TribalResident)		
 		redirect_url = response['Action']['RedirectUrl']
 
+		#uncommit in the future ##########
 		if response['Status']=="Success":
+			######remove in the future but not now#########################
+			response['ApplicationStatus']== "Complete"
 			if response['ApplicationStatus'] in  ["PendingCertification","PendingResolution","PendingEligibility"]:
 				dispatcher.utter_message( text = "We've filled out most of your application in the National Verifier with the information you provided.")
 				dispatcher.utter_message( text = "To proceed, you'll need to confirm some of your information at the National Verifier's website.")
@@ -766,6 +715,7 @@ class ActionGetLifeLineForm(Action):
 	def run(self,dispatcher,tracker,domain):
 		PackageId = tracker.get_slot('PackageId')
 		res = get_lifeline_form(PackageId)	
+
 		if res == "Success":
 			dispatcher.utter_message( text = "Here is a filled out copy of your application!")
 			return[]
@@ -800,11 +750,12 @@ class ActionVerifyEligibility(Action):
 		last_name = tracker.get_slot("LastName")
 		date = tracker.get_slot("DateOfBirth")
 		last_four_social = tracker.get_slot("SocialSecurityNo")
-		residential_address = tracker,get_slot("ResidenceAddress")
+		residential_address = tracker.get_slot("ResidenceAddress")
 		ResidenceCity = tracker.get_slot("ResidenceCity")
 		ResidenceState = tracker.get_slot("ResidenceState")
 		ResidenceZip = tracker.get_slot("ResidenceZipCode")
 		TribalResident = tracker.get_slot("TribalResident")
+
 		res = check_nv_eligibilty(PackageId,last_four_social,first_name,last_name,date,residential_address,ResidenceCity,ResidenceState,ResidenceZip,TribalResident) 
 		if res['Status']=="Success":
 			if res['ApplicationStatus'] == "ApplicationComplete":
@@ -824,7 +775,7 @@ class ActionVerifyEligibility(Action):
 
 class ApplicationEndSuccess(Action):
 	def name(self):
-		return "end_sucess"
+		return "end_success"
 	def run(self,dispatcher,tracker,domain):
 		ordernum = tracker.get_slot("OrderNumber")
 		dispatcher.utter_message(text = "Congratulations!🥳Your application is complete!Thank you for choosing Access Wireless.Your order number is: "+ordernum+ "We will contact you when your applications has been finalized.")
