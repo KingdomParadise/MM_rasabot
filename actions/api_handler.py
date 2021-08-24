@@ -1,12 +1,12 @@
 import requests
 def get_info(userid,token,PackageId,ResidenceState,TribalResident,EligibiltyPrograms):
-	url = 'http://127.0.0.1:8000/get_info/{}/{}/{}/{}/{}/{}'.format(userid,token,PackageId,ResidenceState,TribalResident,EligibiltyPrograms)
+	url = 'http://3.84.239.72:8000/get_info/{}/{}/{}/{}/{}/{}'.format(userid,token,PackageId,ResidenceState,TribalResident,EligibiltyPrograms)
 	res = requests.get(url).json()
 	print(res)
 	return res
 
 def get_ieh(userid):
-	url = 'http://127.0.0.1:8000/get_ieh/{}'.format(userid)
+	url = 'http://3.84.239.72:8000/get_ieh/{}'.format(userid)
 	res = requests.get(url).json()
 	print(res)
 	return res
