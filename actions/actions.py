@@ -148,7 +148,7 @@ class ActionEditPersonalInfoCheck(Action):
 		return "edit_personal_info_check"
 	def run(self,dispatcher,tracker,domain):
 		if tracker.get_slot('isChecked')!=True:
-			res = get_info(tracker.get_slot('userid'))
+			res = get_info(tracker.get_slot('userid'),"d3a1b634-90a7-eb11-a963-005056a96ce9",tracker.get_slot("PackageId"),tracker.get_slot("ResidenceState"),tracker.get_slot("TribalResident"),tracker.get_slot("EligibiltyPrograms"))
 			text = "⚠️Attention! Review your inputs⚠️"
 
 			text += ("First Name : "+res['message']['first_name']+"Middle Name/Initial : "+res['message']['middle_name']+"LastName : "+res['message']['last_name']+"Suffix : "+res['message']['suffix']+"Date Of Birth : "+res['message']['date']+"SSN : "+res['message']['last_four_social']+"Residence Address : "+res['message']['residential_address']+"Apartment/Floor/Other : "+res['message']['apt_unit1']+"City : "+tracker.get_slot('ResidenceCity')+"State : " +tracker.get_slot('ResidenceState')+ "ZipCode : "+tracker.get_slot('ResidenceZipCode'))
@@ -163,7 +163,7 @@ class ActionEditPersonalInfoCheck(Action):
 
 			return[SlotSet("FirstName",res['message']['first_name']),SlotSet("MiddleName",res['message']['middle_name']),SlotSet("LastName",res['message']['last_name']),SlotSet("Suffix",res['message']['suffix']),SlotSet("DateOfBirth",res['message']['date']),SlotSet("SocialSecurityNo",res['message']['last_four_social']),SlotSet("ResidenceAddress",res['message']['residential_address']),SlotSet("Apt_unit1",res['message']['apt_unit1']),SlotSet("Address_nature",res['message']['address_nature']),SlotSet("isChecked",True),SlotSet("Program",res['message']['program'])]	
 		else:
-			res = get_info(tracker.get_slot('userid'))
+			#res = get_info(tracker.get_slot('userid'))
 			text = "⚠️Attention! Review your inputs⚠️"
 			text+=("First Name : "+tracker.get_slot("FirstName"))
 			text+=("Middle Name/Initial : "+ tracker.get_slot("MiddleName"))
@@ -466,7 +466,7 @@ class ActionDisClosureConfiguration(Action):
 			dispatcher.utter_message( text = "Great! We're glad to have you 🤩")
 		buttons = [{"payload":"/disclosure_continue","title":"Continue"}]
 
-		dispatcher.utter_message(text ="Disclosure Web App[www.disclosure.com] (http://127.0.0.1:8000/disclosure/{}/{}/{}/{}/{}/{})".format(tracker.get_slot("userid"),"d3a1b634-90a7-eb11-a963-005056a96ce9",tracker.get_slot("PackageId"),tracker.get_slot("ResidenceState"),tracker.get_slot("TribalResident"),tracker.get_slot("EligibiltyPrograms")), buttons=buttons)
+		dispatcher.utter_message(text ="Disclosure Web App[www.disclosure.com] (http://127.0.0.1:8000/start/{})".format(tracker.get_slot("userid")), buttons=buttons)
 		return[]	
 
 class ActionIehSelect(Action):
@@ -598,7 +598,7 @@ class ActionEnterCode(Action):
 
 		phonenumber = tracker.get_slot("phonenumber")
 		pin = tracker.get_slot("pin")
-
+		print(phonenumber,pin)
 		return[SlotSet("phonenumber","1234567890"),SlotSet("pin","9876"),FollowupAction("submit_order_call")]
 		setting = tracker.get_slot("phonesetting")
 		if setting == True:

@@ -64,9 +64,9 @@ stories:
     - intent: Email
     - intent: Phone
   - action: select_best_way
-#  - or:
-#    - intent: get_phone_number
-#    - intent: get_pin
+  - or:
+    - intent: get_phone_number
+    - intent: get_pin
   - action: validate_number_code
   - intent: wall 
 
