@@ -6,8 +6,8 @@ stories:
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: input_zipcode
-  - action: validate_zipcode
+  - intent: input_number
+  - action: validate_number
   - intent: input_email
   - action: validate_email
   - action: configuration
@@ -64,9 +64,8 @@ stories:
     - intent: Email
     - intent: Phone
   - action: select_best_way
-  - or:
-    - intent: get_phone_number
-    - intent: get_pin
+  - intent: input_number
+  - action: validate_number
   - action: validate_number_code
   - intent: wall 
 
@@ -94,7 +93,8 @@ stories:
 - story: get_Income
   steps:
   - action: submit_order
-  - intent: get_income
+  - intent: input_number
+  - action: validate_number
   - action: provide_income_info
   - or:
     - intent: affirm_income

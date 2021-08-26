@@ -3,7 +3,7 @@ version: "2.0"
 intents:
   - greet
   - goodbye
-  - input_zipcode
+  - input_number
   - input_email
   - approve_continue
   - customer_restart
@@ -55,18 +55,12 @@ intents:
   - Mail
   - deny_income
   - affirm_income
-  - get_income
-  - get_phone_number
-  - get_pin
   - continue_pending
   - generate_new_link
   - National
 entities:
-- ResidenceZipCode 
+- number
 - email
-- income
-- phonenumber
-- pin
 
 responses:
   utter_greet:
@@ -158,6 +152,8 @@ slots:
     type: text
   pin:
     type: text
+  number:
+    type: text
   phonesetting:
     type: bool 
   BestWayToReachYou:
@@ -167,7 +163,7 @@ slots:
   ieh:
     type: bool
 actions:
-  - validate_zipcode
+  - validate_number
   - validate_email
   - configuration
   - set_tribal_resident

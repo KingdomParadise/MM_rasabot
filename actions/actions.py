@@ -16,16 +16,30 @@ import random
 import string
 from . api_handler import *
 
-class ActionValidateZipCode(Action):
+class ActionValidateNumber(Action):
 	def name(self):
-		return "validate_zipcode"
+		return "validate_number"
 
 	def run(self, dispatcher,tracker,domain):
-		print("-->validate zipcode")
-		zipcode = tracker.get_slot('ResidenceZipCode')
-		ResidenceZipCode = tracker.get_slot('ResidenceZipCode')
+		number = tracker.get_slot('number')
+		zipcode = tracker.get_slot("ResidenceZipCode")
+		pin = tracker.get_slot("pin")
+		phonenumber = tracker.get_slot("phonenumber")
+		income = tracker.get_slot("income")
+
 		if tracker.get_slot('isemail')==False:
 			return []
+
+		if zipcode==None:
+			zipcode = number
+		elif  income==None:
+			return[SlotSet("income",number),FollowupAction("provide_income_info")]
+		elif phonenumber==None:
+			return[SlotSet("phonenumber",number),FollowupAction("validate_number_code")]
+		elif pin==None:
+			return[SlotSet("pin",number),FollowupAction("validate_number_code")]				
+
+		
 		if zipcode!=None and len(zipcode) == 5:
 			current = requests.get("https://maps.googleapis.com/maps/api/geocode/json?address="+zipcode+"&key=AIzaSyAJGToD7umZ-VdfAl95vSnd1AlxVxt9lUI").json()
 			if current['status'] == 'OK':
@@ -545,14 +559,14 @@ class ActionSubmitOrder(Action):
 			dispatcher.utter_message("To continue we'll need to verify some of your income information💲")
 			dispatcher.utter_message("What dollar amount is on your income proof?")
 			dispatcher.utter_message("Please upload your proof of income 📰")
-			return[]
+			return[FollowupAction("select_best_way")]
 
 		else:
 			buttons = [{"payload":"/Phone","title":"Phone"},{"payload":"/Email","title":"Email"},{"payload":"/Mail","title":"Mail"}]
 			dispatcher.utter_message(text = "What is the best way to reach you? Click one of the options below",buttons = buttons)
 
 			#return[FollowupAction("select_best_way")]
-			return[]
+			return[SlotSet("income","1000")]
 class ActionProvideIncomeInfo(Action):
 	def name(self):
 		return "provide_income_info"
@@ -583,11 +597,11 @@ class ActionSelectBestWay(Action):
 		print("select_best_way")
 		message = tracker.latest_message['text']
 		if message=="/Phone":
-			dispatcher.utter_message(text = "What is your phone number? 📱It can look like this: 5417901356 (ex: phonenumber is XXXXXXXXXX)")
+			dispatcher.utter_message(text = "What is your phone number? 📱It can look like this: 5417901356")
 			return[SlotSet("BestWayToReachYou","phone"),SlotSet("phonesetting",True)]
 		elif message=="/Mail" or message=="/Email":
 			dispatcher.utter_message(text = "Please make a four digit PIN for your application(ex:pin  is xxxx)")
-			return[SlotSet("BestWayToReachYou",message[1:].lower()),SlotSet("phonesetting",False)]	
+			return[SlotSet("phonenumber","0000000000"),SlotSet("BestWayToReachYou",message[1:].lower()),SlotSet("phonesetting",False)]	
 
 class ActionEnterCode(Action):
 	def name(self):
@@ -599,7 +613,7 @@ class ActionEnterCode(Action):
 		phonenumber = tracker.get_slot("phonenumber")
 		pin = tracker.get_slot("pin")
 		print(phonenumber,pin)
-		return[SlotSet("phonenumber","1234567890"),SlotSet("pin","9876"),FollowupAction("submit_order_call")]
+
 		setting = tracker.get_slot("phonesetting")
 		if setting == True:
 			if len(phonenumber)==10:
@@ -608,14 +622,14 @@ class ActionEnterCode(Action):
 				return [SlotSet("phonenumber",phonenumber),SlotSet("phonesetting",False)]
 			else:
 				dispatcher.utter_message(text = "wrong phone number, please enter the phone number again! - 10 digits")	
-				return[]
+				return[SlotSet("phonenumber",None)]
 		if setting == False:
 			print("pin")			
 			if len(pin)==4:
 				return [SlotSet("pin",pin),FollowupAction("submit_order_call")]
 			else:
 				dispatcher.utter_message( text = "wrong pin code, please enter the pin code again! - 4 digits")
-				return []	
+				return [SlotSet("pin",None)]	
 
 
 class ActionSubmitOrederCall(Action):
