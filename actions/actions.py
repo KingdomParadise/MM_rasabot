@@ -97,7 +97,7 @@ class ActionConfiguration(Action):
 						buttons = [
 								{"payload": "/approve_continue", "title": "continue"},
 							] 
-						dispatcher.utter_message(text = "Multi-page Web Form [www.multiwebform.com] (http://3.84.239.72:8000/submit_info/{})".format(userid),buttons=buttons)
+						dispatcher.utter_message(text = "Multi-page Web Form [www.multiwebform.com] (http://35.153.52.119:8000/submit_info/{})".format(userid),buttons=buttons)
 						
 						
 						return [SlotSet("userid",userid),SlotSet("ReservationUserCode",res_user_configuration['ReservationUserCode']),SlotSet("ReservationClientCode",res_user_configuration['ReservationClientCode']),SlotSet("ReservationVendorCode",res_user_configuration['ReservationVendorCode']),SlotSet("OrderNumber",res_start_order['OrderNumber']),SlotSet("PackageId",res_start_order['PackageId']),SlotSet("TribalEligible",res_state_configuration['TribalEligible']),SlotSet("EligibiltyPrograms",res_state_configuration['EligibiltyPrograms'][0]['Code']),SlotSet("FcraDisclosureText",res_state_configuration['FcraDisclosureText']),SlotSet("FcraAdditionalDisclosureText",res_state_configuration['FcraAdditionalDisclosureText']),SlotSet("FcraAcknowledgement",res_state_configuration['FcraAcknowledgement'])]
@@ -466,7 +466,7 @@ class ActionDisClosureConfiguration(Action):
 			dispatcher.utter_message( text = "Great! We're glad to have you 🤩")
 		buttons = [{"payload":"/disclosure_continue","title":"Continue"}]
 
-		dispatcher.utter_message(text ="Disclosure Web App[www.disclosure.com] (http://3.84.239.72:8000/start/{})".format(tracker.get_slot("userid")), buttons=buttons)
+		dispatcher.utter_message(text ="Disclosure Web App[www.disclosure.com] (http://35.153.52.119:8000/start/{})".format(tracker.get_slot("userid")), buttons=buttons)
 		return[]	
 
 class ActionIehSelect(Action):
