@@ -165,7 +165,18 @@ class ActionEditPersonalInfoCheck(Action):
 			res = get_info(tracker.get_slot('userid'),"d3a1b634-90a7-eb11-a963-005056a96ce9",tracker.get_slot("PackageId"),tracker.get_slot("ResidenceState"),tracker.get_slot("TribalResident"),tracker.get_slot("EligibiltyPrograms"))
 			text = "⚠️Attention! Review your inputs⚠️"
 
-			text += ("First Name : "+res['message']['first_name']+"Middle Name/Initial : "+res['message']['middle_name']+"LastName : "+res['message']['last_name']+"Suffix : "+res['message']['suffix']+"Date Of Birth : "+res['message']['date']+"SSN : "+res['message']['last_four_social']+"Residence Address : "+res['message']['residential_address']+"Apartment/Floor/Other : "+res['message']['apt_unit1']+"City : "+tracker.get_slot('ResidenceCity')+"State : " +tracker.get_slot('ResidenceState')+ "ZipCode : "+tracker.get_slot('ResidenceZipCode'))
+			text = "⚠️Attention! Review your inputs⚠️\n\n"
+		    text += "First Name : " + res['message']['first_name'] + '\n\n'
+		    text += "Middle Name/Initial : "+res['message']['middle_name'] + '\n\n'
+		    text += "LastName : "+res['message']['last_name'] + '\n\n'
+		    text += "Suffix : "+res['message']['suffix'] + '\n\n'
+		    text += "Date Of Birth : "+res['message']['date'] + '\n\n'
+		    text += "SSN : "+res['message']['last_four_social'] + '\n\n'
+		    text += "Residence Address : "+res['message']['residential_address'] + '\n\n'
+		    text += "Apartment/Floor/Other : "+res['message']['apt_unit1'] + '\n\n'
+		    text += "City : "+tracker.get_slot('ResidenceCity') + '\n\n'
+		    text += "State : " +tracker.get_slot('ResidenceState') + '\n\n'
+		    text += "ZipCode : "+tracker.get_slot('ResidenceZipCode') + '\n\n'
 
 			text+="Make sure to click `Continue Application` if all of your information is correct"	
 
@@ -178,18 +189,18 @@ class ActionEditPersonalInfoCheck(Action):
 			return[SlotSet("FirstName",res['message']['first_name']),SlotSet("MiddleName",res['message']['middle_name']),SlotSet("LastName",res['message']['last_name']),SlotSet("Suffix",res['message']['suffix']),SlotSet("DateOfBirth",res['message']['date']),SlotSet("SocialSecurityNo",res['message']['last_four_social']),SlotSet("ResidenceAddress",res['message']['residential_address']),SlotSet("Apt_unit1",res['message']['apt_unit1']),SlotSet("Address_nature",res['message']['address_nature']),SlotSet("isChecked",True),SlotSet("Program",res['message']['program'])]	
 		else:
 			#res = get_info(tracker.get_slot('userid'))
-			text = "⚠️Attention! Review your inputs⚠️"
-			text+=("First Name : "+tracker.get_slot("FirstName"))
-			text+=("Middle Name/Initial : "+ tracker.get_slot("MiddleName"))
-			text+=("LastName : "+tracker.get_slot("LastName"))
-			text+=("Suffix : "+tracker.get_slot("Suffix"))
-			text+=("Date Of Birth : "+tracker.get_slot("DateOfBirth"))
-			text+=("SSN : "+tracker.get_slot("SocialSecurityNo"))
-			text+=("Resodence Address : "+tracker.get_slot("ResidenceAddress"))
-			text+=("Apartment/Floor/Other : "+tracker.get_slot("Apt_unit1"))
-			text+=("City : "+tracker.get_slot('ResidenceCity'))
-			text+=("State : " +tracker.get_slot('ResidenceState'))
-			text+=("ZipCode : "+tracker.get_slot('ResidenceZipCode'))
+			text = "⚠️Attention! Review your inputs⚠️\n\n"
+	        text += ("First Name : "+tracker.get_slot("FirstName") + '\n\n')
+	        text += ("Middle Name/Initial : "+ tracker.get_slot("MiddleName") + '\n\n')
+	        text += ("LastName : "+tracker.get_slot("LastName") + '\n\n')
+	        text += ("Suffix : "+tracker.get_slot("Suffix") + '\n\n')
+	        text += ("Date Of Birth : "+tracker.get_slot("DateOfBirth") + '\n\n')
+	        text += ("SSN : "+tracker.get_slot("SocialSecurityNo") + '\n\n')
+	        text += ("Resodence Address : "+tracker.get_slot("ResidenceAddress") + '\n\n')
+	        text += ("Apartment/Floor/Other : "+tracker.get_slot("Apt_unit1") + '\n\n')
+	        text += ("City : "+tracker.get_slot('ResidenceCity') + '\n\n')
+	        text += ("State : " +tracker.get_slot('ResidenceState') + '\n\n')
+	        text += ("ZipCode : "+tracker.get_slot('ResidenceZipCode') + '\n\n')
 			text+="Make sure to click `Continue Application` if all of your information is correct"	
 			buttons = [{"payload":"/affirm_edit","title":"Let me think"},
 					   {"payload":"/deny_edit","title":"Continue Application"}
