@@ -602,7 +602,7 @@ class ActionEnterCode(Action):
 		setting = tracker.get_slot("phonesetting")
 		if setting == True:
 			if len(phonenumber)==10:
-				dispatcher.utter_message(text = "Please make a four digit PIN for your application (ex:pin digit is xxxx)")
+				dispatcher.utter_message(text = "Please make a four digit PIN for your application (ex:like 1002)")
 				return [SlotSet("phonenumber",phonenumber),SlotSet("phonesetting",False)]
 			else:
 				dispatcher.utter_message(text = "wrong phone number, please enter the phone number again! - 10 digits")	
