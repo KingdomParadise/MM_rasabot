@@ -29,6 +29,7 @@ class ActionValidateNumber(Action):
 		edit_item = tracker.get_slot("edit_item")
 		if edit_item!=None:
 			return[FollowupAction("edit_personal_info_modify")]
+
 		if tracker.get_slot('isemail')==False:
 			return []
 
@@ -642,8 +643,8 @@ class ActionSubmitOrederCall(Action):
 		else:
 			#buttons = [{"payload":"/customer_help","title":"Do yo u need help"},{"payload":"/customer_restart","title":"Do you restart?"},{"payload":"/National","title":"National Questions"}]
 			buttons = [{"payload":"/customer_help","title":"Do yo u need help"},{"payload":"/customer_restart","title":"Do you restart?"}]
-			dispatcher.utter_message("Oh no! Your order failed:[INPUT ERROR MESSAGE] How would you like to proceed?")
-			return []
+			dispatcher.utter_message("Oh no! Your order failed: How would you like to proceed?")
+			return [SlotSet("ResidenceZipCode",None),SlotSet("income",None),SlotSet("phonenumber",None),SlotSet("pin",None)]
 
 class ActionCheckNvEligibility(Action):
 	def name(self):
