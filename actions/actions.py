@@ -58,9 +58,7 @@ class ActionValidateEmail(Action):
 		return "validate_email" 
 
 	def run(self, dispatcher, tracker, domain):
-		print("--->email validation")
 		email = tracker.get_slot('email')
-		print(email)
 		response = requests.get("https://isitarealemail.com/api/email/validate", params = {'email': email})
 		status = response.json()['status']
 		if status=='valid':
@@ -154,7 +152,6 @@ class ActioSetTribalResident(Action):
 			dispatcher.utter_message( text = "Do you reside on Federally-recognized Tribal lands?",buttons = buttons)   
 			return []		
 		else:
-			print("settribal")
 			return [SlotSet('TribalResident',False),FollowupAction("edit_personal_info_check")]
 
 class ActionEditPersonalInfoCheck(Action):
@@ -166,17 +163,17 @@ class ActionEditPersonalInfoCheck(Action):
 			text = "⚠️Attention! Review your inputs⚠️"
 
 			text = "⚠️Attention! Review your inputs⚠️\n\n"
-		    text += "First Name : " + res['message']['first_name'] + '\n\n'
-		    text += "Middle Name/Initial : "+res['message']['middle_name'] + '\n\n'
-		    text += "LastName : "+res['message']['last_name'] + '\n\n'
-		    text += "Suffix : "+res['message']['suffix'] + '\n\n'
-		    text += "Date Of Birth : "+res['message']['date'] + '\n\n'
-		    text += "SSN : "+res['message']['last_four_social'] + '\n\n'
-		    text += "Residence Address : "+res['message']['residential_address'] + '\n\n'
-		    text += "Apartment/Floor/Other : "+res['message']['apt_unit1'] + '\n\n'
-		    text += "City : "+tracker.get_slot('ResidenceCity') + '\n\n'
-		    text += "State : " +tracker.get_slot('ResidenceState') + '\n\n'
-		    text += "ZipCode : "+tracker.get_slot('ResidenceZipCode') + '\n\n'
+			text += "First Name : " + res['message']['first_name'] + '\n\n'
+			text += "Middle Name/Initial : "+res['message']['middle_name'] + '\n\n'
+			text += "LastName : "+res['message']['last_name'] + '\n\n'
+			text += "Suffix : "+res['message']['suffix'] + '\n\n'
+			text += "Date Of Birth : "+res['message']['date'] + '\n\n'
+			text += "SSN : "+res['message']['last_four_social'] + '\n\n'
+			text += "Residence Address : "+res['message']['residential_address'] + '\n\n'
+			text += "Apartment/Floor/Other : "+res['message']['apt_unit1'] + '\n\n'
+			text += "City : "+tracker.get_slot('ResidenceCity') + '\n\n'
+			text += "State : " +tracker.get_slot('ResidenceState') + '\n\n'
+			text += "ZipCode : "+tracker.get_slot('ResidenceZipCode') + '\n\n'
 
 			text+="Make sure to click `Continue Application` if all of your information is correct"	
 
@@ -190,17 +187,17 @@ class ActionEditPersonalInfoCheck(Action):
 		else:
 			#res = get_info(tracker.get_slot('userid'))
 			text = "⚠️Attention! Review your inputs⚠️\n\n"
-	        text += ("First Name : "+tracker.get_slot("FirstName") + '\n\n')
-	        text += ("Middle Name/Initial : "+ tracker.get_slot("MiddleName") + '\n\n')
-	        text += ("LastName : "+tracker.get_slot("LastName") + '\n\n')
-	        text += ("Suffix : "+tracker.get_slot("Suffix") + '\n\n')
-	        text += ("Date Of Birth : "+tracker.get_slot("DateOfBirth") + '\n\n')
-	        text += ("SSN : "+tracker.get_slot("SocialSecurityNo") + '\n\n')
-	        text += ("Resodence Address : "+tracker.get_slot("ResidenceAddress") + '\n\n')
-	        text += ("Apartment/Floor/Other : "+tracker.get_slot("Apt_unit1") + '\n\n')
-	        text += ("City : "+tracker.get_slot('ResidenceCity') + '\n\n')
-	        text += ("State : " +tracker.get_slot('ResidenceState') + '\n\n')
-	        text += ("ZipCode : "+tracker.get_slot('ResidenceZipCode') + '\n\n')
+			text += ("First Name : "+tracker.get_slot("FirstName") + '\n\n')
+			text += ("Middle Name/Initial : "+ tracker.get_slot("MiddleName") + '\n\n')
+			text += ("LastName : "+tracker.get_slot("LastName") + '\n\n')
+			text += ("Suffix : "+tracker.get_slot("Suffix") + '\n\n')
+			text += ("Date Of Birth : "+tracker.get_slot("DateOfBirth") + '\n\n')
+			text += ("SSN : "+tracker.get_slot("SocialSecurityNo") + '\n\n')
+			text += ("Resodence Address : "+tracker.get_slot("ResidenceAddress") + '\n\n')
+			text += ("Apartment/Floor/Other : "+tracker.get_slot("Apt_unit1") + '\n\n')
+			text += ("City : "+tracker.get_slot('ResidenceCity') + '\n\n')
+			text += ("State : " +tracker.get_slot('ResidenceState') + '\n\n')
+			text += ("ZipCode : "+tracker.get_slot('ResidenceZipCode') + '\n\n')
 			text+="Make sure to click `Continue Application` if all of your information is correct"	
 			buttons = [{"payload":"/affirm_edit","title":"Let me think"},
 					   {"payload":"/deny_edit","title":"Continue Application"}
@@ -212,7 +209,6 @@ class ActionEditPersonalInfoConfirm(Action):
 	def name(self):
 		return "edit_personal_info_confirm"
 	def run(self,dispatcher,tracker,domain):
-		print("edit_personal_info_confirm")
 		message = tracker.latest_message['text']
 		if message=="/affirm_edit":
 			buttons = [{"payload":"/FirstName","title":"First Name"},
@@ -236,9 +232,7 @@ class ActionEditPersonalInfoSelect(Action):
 	def name(self):
 		return "edit_personal_info_select"
 	def run(self,dispatcher,tracker,domain):
-		print("edit_personal_info_select")
 		message = tracker.latest_message['text']
-		print("select->",message)	
 		dispatcher.utter_message( text = "Please enter the value")
 		return [SlotSet("edit_item",message[1:])]
 
@@ -246,10 +240,8 @@ class ActionEditPersonalInfoModify(Action):
 	def name(self):
 		return "edit_personal_info_modify"
 	def run(self,dispatcher,tracker,domain):
-		print("edit_personal_info_modify")	
 		message = tracker.latest_message['text']	
 		edit_item = tracker.get_slot('edit_item')
-		print("edit_item->",edit_item)
 		return[SlotSet(edit_item,message),FollowupAction("edit_personal_info_check")]
 class ActionValidateNameAddress(Action):
 	def name(self):
@@ -303,8 +295,6 @@ class ActionCGMCheck(Action):
 	def name(self):
 		return "cgm_check"		
 	def run(self,dispatcher,tracker,domain):
-		print("cgm_check")
-		#dispatcher.utter_message(text = "CGM checking...")
 		PackageId = tracker.get_slot('PackageId')
 		FirstName = tracker.get_slot('FirstName')
 		LastName = tracker.get_slot('LastName')
@@ -353,7 +343,6 @@ class ActionlifeLinePlans(Action):
 		return "life_line_plans"
 
 	def run(self,dispatcher,tracker,domain):
-		print("lifelineplans")
 		PackageId = tracker.get_slot('PackageId')
 		ResidenceState = tracker.get_slot('ResidenceState')
 		ResidenceZip = tracker.get_slot('ResidenceZipCode')
@@ -375,7 +364,6 @@ class ActionlifeLinePlansSelect(Action):
 	def name(self):
 		return "life_line_plans_select"
 	def run(self,dispatcher,tracker,domain):
-		print("lifelineplansSelect")
 		ResidenceState = tracker.get_slot('ResidenceState')
 		message = tracker.latest_message['text']
 		plans = tracker.get_slot("plans")
@@ -388,7 +376,6 @@ class ActionlifeLinePlansSelect(Action):
 			dispatcher.utter_message( text = "What language do you perfer to speak? 😊",buttons = buttons)
 			return [SlotSet("lifeline",plans[int(message[5:])-1])]
 		else:
-			print("check_application_status call...")
 			return [SlotSet("lifeline",plans[int(message[5:])-1]),FollowupAction("check_application_status")]
 
 class ActionSelectLanguages(Action):
@@ -433,7 +420,6 @@ class ActionCheckApplicationStatus(Action):
 	def name(self):
 		return "check_application_status"						
 	def run(self,dispatcher,tracker,domain):
-		print('check_application_status')
 		dispatcher.utter_message( text = "Do you prefer standard print, or LARGE PRINT notifications? Contact Access Wireless Customer Service directly if you would like to receive future communications from the California LifeLine Administrator in Braille.")			
 		ResidenceState = tracker.get_slot('ResidenceState')
 		PackageId = tracker.get_slot("PackageId")
@@ -445,7 +431,7 @@ class ActionCheckApplicationStatus(Action):
 		ResidenceCity = tracker.get_slot("ResidenceCity")
 		ResidenceZip = tracker.get_slot("ResidenceZipCode")
 		TribalResident = tracker.get_slot("TribalResident")
-		#uncommit in the future
+		
 		if ResidenceState=="CA":
 			res = check_NladEbb_application_status(PackageId,last_four_social,first_name,last_name,date,residence_address,ResidenceCity,ResidenceState,ResidenceZip,TribalResident)
 		else:
@@ -471,7 +457,6 @@ class ActionApplicationStatus_Select(Action):
 	def name(self):
 		return "application_status_select"
 	def run(self,dispatcher,tracker,domain):
-		print("application_status_select")
 		message = tracker.latest_message['text']
 		if message=="/check_status":
 			return [FollowupAction("check_application_status")] 
@@ -485,7 +470,6 @@ class ActionDisClosureConfiguration(Action):
 	def name(self):
 		return "dis_closure_configuration"
 	def run(self,dispatcher,tracker,domain):
-		print("dis_closure_configuration")
 		message = tracker.latest_message['text']
 		if message=="/affirm_application_status":
 			dispatcher.utter_message( text = "Great! We're glad to have you 🤩")
@@ -498,8 +482,6 @@ class ActionIehSelect(Action):
 	def name(self):
 		return "ieh_select"
 	def run(self,dispatcher,tracker,domain):
-		print("ieh_select")
-		#uncommit in the future
 		iehBool = get_ieh(tracker.get_slot("userid"))['ieh']
 
 		if iehBool==True:
@@ -513,7 +495,6 @@ class ActionLifelineService(Action):
 	def name(self):
 		return "life_line_service"
 	def run(self,dispatcher,tracker,domain):
-		print("life_line_service")
 		message = tracker.latest_message['text']
 		if message=="/affirm_disclosure":
 			dispatcher.utter_message( text = "I'm Sorry 😥 You do not qualify to apply for Lifeline because someone in your household already gets the benefit.Each household is allowed to get only ONE Lifeline")
@@ -533,7 +514,6 @@ class ActionShareLivingExpenses(Action):
 	def name(self):
 		return "share_living_expenses"
 	def run(self,dispatcher,tracker,domain):
-		print("share_living_expensesi")
 		message = tracker.latest_message['text']
 		if message=="/parent" or message =="/child" or message=="/otheradultrelative" or message=="/adultroommate":
 			buttons = [{"payload":"/affirm_share_expenses","title":"Yes"},{"payload":"/deny_share_expenses","title":"No"}]
@@ -551,7 +531,6 @@ class ActionShareExpensesConfirm(Action):
 	def name(self):
 		return "share_living_expenses_confirm"
 	def run(self, dispatcher, tracker,domain):
-		print("share_living_expenses_confirm")
 		message = tracker.latest_message['text']
 		if message=="/affirm_share_expenses":
 			dispatcher.utter_message( text = "I'm Sorry 😥 You do not qualify to apply for Lifeline because someone in your household already gets the benefit.Each household is allowed to get only ONE Lifeline")	
@@ -564,7 +543,6 @@ class ActionSubmitOrder(Action):
 	def name(self):
 		return "submit_order"
 	def run(self, dispatcher, tracker, domain):
-		print("submit_order")
 		Program = tracker.get_slot("Program")
 		if Program=="135p" or Program== "150p":
 			dispatcher.utter_message("To continue we'll need to verify some of your income information💲")
@@ -582,8 +560,6 @@ class ActionProvideIncomeInfo(Action):
 	def name(self):
 		return "provide_income_info"
 	def run(self,dispatcher,tracker,domain):
-		print("provide_income_info")
-		print(tracker.get_slot('income'))
 		buttons = [{"payload":"/affirm_income","title":"Yes"},{"payload":"/deny_income","title":"No"}]
 		dispatcher.utter_message( text = "Do you have more income information to provide?",buttons = buttons)
 		return[]
@@ -592,7 +568,6 @@ class ActionProvideIncomeSelect(Action):
 	def name(self):
 		return "provide_income_select"
 	def run(self,dispatcher,tracker,domain):
-		print("provide_income_select")
 		message = tracker.latest_message['text']
 		if message == "/affirm_income":
 			return [FollowupAction("submit_order")]			
@@ -605,7 +580,6 @@ class ActionSelectBestWay(Action):
 	def name(self):
 		return "select_best_way"
 	def run(self,dispatcher,tracker,domain):
-		print("select_best_way")
 		message = tracker.latest_message['text']
 		if message=="/Phone":
 			dispatcher.utter_message(text = "What is your phone number? 📱It can look like this: 5417901356")
@@ -619,23 +593,19 @@ class ActionEnterCode(Action):
 		return "validate_number_code"
 	def run(self,dispatcher,tracker,domain):
 
-		print("validate_number_code")
 
 		phonenumber = tracker.get_slot("phonenumber")
 		pin = tracker.get_slot("pin")
-		print(phonenumber,pin)
 
 		setting = tracker.get_slot("phonesetting")
 		if setting == True:
 			if len(phonenumber)==10:
-				print("phonenumber")
 				dispatcher.utter_message(text = "Please make a four digit PIN for your application (ex:pin digit is xxxx)")
 				return [SlotSet("phonenumber",phonenumber),SlotSet("phonesetting",False)]
 			else:
 				dispatcher.utter_message(text = "wrong phone number, please enter the phone number again! - 10 digits")	
 				return[SlotSet("phonenumber",None)]
 		if setting == False:
-			print("pin")			
 			if len(pin)==4:
 				return [SlotSet("pin",pin),FollowupAction("submit_order_call")]
 			else:
@@ -647,7 +617,6 @@ class ActionSubmitOrederCall(Action):
 	def name(self):
 		return "submit_order_call"
 	def run(self,dispatcher,tracker,domain):
-		print("submit_order_call")
 		PackageId = tracker.get_slot("PackageId")
 		EligibiltyPrograms = tracker.get_slot("EligibiltyPrograms")
 		first_name = tracker.get_slot("FirstName")
@@ -662,7 +631,6 @@ class ActionSubmitOrederCall(Action):
 		BestWayToReachYou = tracker.get_slot("BestWayToReachYou")
 		PhoneNumber = tracker.get_slot("phonenumber")
 		email = tracker.get_slot("email")
-		print(tracker.get_slot("BestWayToReachYou"))
 
 		res = submit_order_call(PackageId,EligibiltyPrograms,first_name,last_name,suffix,date,last_four_social,residential_address,ResidenceCity,ResidenceState,ResidenceZip,BestWayToReachYou,PhoneNumber,email)
 

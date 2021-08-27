@@ -2,13 +2,11 @@ import requests
 def get_info(userid,token,PackageId,ResidenceState,TribalResident,EligibiltyPrograms):
 	url = 'http://35.153.52.119:8000/get_info/{}/{}/{}/{}/{}/{}'.format(userid,token,PackageId,ResidenceState,TribalResident,EligibiltyPrograms)
 	res = requests.get(url).json()
-	print(res)
 	return res
 
 def get_ieh(userid):
 	url = 'http://35.153.52.119:8000/get_ieh/{}'.format(userid)
 	res = requests.get(url).json()
-	print(res)
 	return res
 
 def validate_name_address(first_name,last_name,date,social,EligibiltyPrograms,Address,ResidenceCity,ResidenceState,ResidenceZip,PackageId,ReservationVendorCode,ReservationClientCode,ReservationUserCode):
@@ -141,7 +139,6 @@ def check_nv_application_status(PackageId,last_four_social,first_name,last_name,
 		"Tribal" : TribalResident,
 	}
 	res = requests.post(check_nv_application_status_url,data = data).json()
-	print(res)
 	return res    
 
 def submit_order_call(PackageId,EligibiltyPrograms,first_name,last_name,suffix,date,last_four_social,residential_address,ResidenceCity,ResidenceState,ResidenceZip,BestWayToReachYou,PhoneNumber,email):
