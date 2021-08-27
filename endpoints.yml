@@ -11,8 +11,8 @@
 # https://rasa.com/docs/rasa/custom-actions
 
 action_endpoint:
-  url: "http://35.153.52.119:5055/webhook"
-  #url: "http://127.0.0.1:5055/webhook"
+   url: "http://35.153.52.119:5055/webhook"
+  # url: "http://127.0.0.1:5055/webhook"
 
 #35.153.52.119
 # Tracker store which is used to store the conversations.

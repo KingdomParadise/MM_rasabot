@@ -26,7 +26,9 @@ class ActionValidateNumber(Action):
 		pin = tracker.get_slot("pin")
 		phonenumber = tracker.get_slot("phonenumber")
 		income = tracker.get_slot("income")
-
+		edit_item = tracker.get_slot("edit_item")
+		if edit_item!=None:
+			return[FollowupAction("edit_personal_info_modify")]
 		if tracker.get_slot('isemail')==False:
 			return []
 
@@ -242,7 +244,7 @@ class ActionEditPersonalInfoModify(Action):
 	def run(self,dispatcher,tracker,domain):
 		message = tracker.latest_message['text']	
 		edit_item = tracker.get_slot('edit_item')
-		return[SlotSet(edit_item,message),FollowupAction("edit_personal_info_check")]
+		return[SlotSet(edit_item,message),SlotSet("edit_item",None),FollowupAction("edit_personal_info_check")]
 class ActionValidateNameAddress(Action):
 	def name(self):
 		return "validate_name_address"
@@ -585,7 +587,7 @@ class ActionSelectBestWay(Action):
 			dispatcher.utter_message(text = "What is your phone number? 📱It can look like this: 5417901356")
 			return[SlotSet("BestWayToReachYou","phone"),SlotSet("phonesetting",True)]
 		elif message=="/Mail" or message=="/Email":
-			dispatcher.utter_message(text = "Please make a four digit PIN for your application(ex:pin  is xxxx)")
+			dispatcher.utter_message(text = "Please make a four digit PIN for your application(ex:like 1002)")
 			return[SlotSet("phonenumber","0000000000"),SlotSet("BestWayToReachYou",message[1:].lower()),SlotSet("phonesetting",False)]	
 
 class ActionEnterCode(Action):
