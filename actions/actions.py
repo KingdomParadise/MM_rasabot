@@ -16,6 +16,12 @@ import random
 import string
 from . api_handler import *
 
+class ActionInitial(Action):
+	def name(self):
+		return "initial"
+	def run(self,dispatcher,tracker,domain):
+		return[SlotSet("ResidenceZipCode",None),SlotSet("pin",None),SlotSet("phonenumber",None),SlotSet("income",None),SlotSet("edit_item",None),SlotSet("isemail",None)]	
+
 class ActionValidateNumber(Action):
 	def name(self):
 		return "validate_number"
@@ -27,6 +33,7 @@ class ActionValidateNumber(Action):
 		phonenumber = tracker.get_slot("phonenumber")
 		income = tracker.get_slot("income")
 		edit_item = tracker.get_slot("edit_item")
+
 		if edit_item!=None:
 			return[FollowupAction("edit_personal_info_modify")]
 
@@ -35,7 +42,9 @@ class ActionValidateNumber(Action):
 
 		if zipcode==None:
 			zipcode = number
-		elif  income==None:
+			print("zipcode->",number)
+		elif zipcode!=None and income==None:
+			print("income->",income)
 			return[SlotSet("income",number),FollowupAction("provide_income_info")]
 		elif phonenumber==None:
 			return[SlotSet("phonenumber",number),FollowupAction("validate_number_code")]
@@ -86,7 +95,7 @@ class ActionConfiguration(Action):
 		state = tracker.get_slot('ResidenceState')
 		isemail = tracker.get_slot('isemail')
 		if isemail==False:
-			return [FollowupAction("validate_zipcode")]
+			return [FollowupAction("validate_number")]
 
 		letters = string.ascii_lowercase
 		userid = ''.join(random.choice(letters) for i in range(10))
@@ -96,7 +105,7 @@ class ActionConfiguration(Action):
 			buttons = [
 						{"payload": "/approve_continue", "title": "continue"},
 					] 
-			dispatcher.utter_message(text = "Please Complete Multi-page Web Form [www.multiwebform.com] (http://127.0.0.1:8000/submit_info/{})".format(userid),buttons=buttons)
+			dispatcher.utter_message(text = "Please Complete Multi-page Web Form [www.multiwebform.com] (http://35.153.52.119:8000/submit_info/{})".format(userid),buttons=buttons)
 			return [SlotSet("userid",userid)]
 
 		res = requests.post(check_avaliability_url, data={'Token':token,'ZipCode':zipcode,'Email':email}).json() 
@@ -174,47 +183,37 @@ class ActionEditPersonalInfoCheck(Action):
 			res = get_info(tracker.get_slot('userid'),"d3a1b634-90a7-eb11-a963-005056a96ce9",tracker.get_slot("PackageId"),tracker.get_slot("ResidenceState"),tracker.get_slot("TribalResident"),tracker.get_slot("EligibiltyPrograms"))
 			if res['message']['id'] == None:
 				return [FollowupAction("configuration")]
-			dispatcher.utter_message(text  =   "⚠️Attention! Review your inputs⚠️")
-			dispatcher.utter_message(text  =   "First Name : " + res['message']['first_name'])
-			dispatcher.utter_message(text  =   "Middle Name/Initial : "+res['message']['middle_name']) 
-			dispatcher.utter_message(text  =   "LastName : "+res['message']['last_name'])
-			dispatcher.utter_message(text  =   "Suffix : "+res['message']['suffix'])
-			dispatcher.utter_message(text  =   "Date Of Birth : "+res['message']['date'])
-			dispatcher.utter_message(text  =   "SSN : "+res['message']['last_four_social'])
-			dispatcher.utter_message(text  =   "Residence Address : "+res['message']['residential_address'])
-			dispatcher.utter_message(text  =   "Apartment/Floor/Other : "+res['message']['apt_unit1'])
-			dispatcher.utter_message(text  =   "City : "+tracker.get_slot('ResidenceCity'))
-			dispatcher.utter_message(text  =   "State : " +tracker.get_slot('ResidenceState'))
-			dispatcher.utter_message(text  =   "ZipCode : "+tracker.get_slot('ResidenceZipCode'))
-
-			text="Make sure to click `Continue Application` if all of your information is correct"+"             " +"\n\n"
-
-			buttons = [{"payload":"/affirm_edit","title":"Let me think"},
-					   {"payload":"/deny_edit","title":"Continue Application"}
-						]           
-
-			dispatcher.utter_message ( text = text, buttons = buttons)
+			dispatcher.utter_message(
+				response="utter_personal_info",
+				firstName = res['message']['first_name'],
+				middleName = res['message']['middle_name'],
+				lastName = res['message']['last_name'],
+				suffix = res['message']['suffix'],
+				dateOfBirth = res['message']['date'],
+				socialSecurityNo = res['message']['last_four_social'],
+				residenceAddress = res['message']['residential_address'],
+				apt_unit1 = res['message']['apt_unit1'],
+				residenceCity = tracker.get_slot('ResidenceCity'),
+				residenceState = tracker.get_slot('ResidenceState'),
+				residenceZipCode = tracker.get_slot('ResidenceZipCode')
+			)
 
 			return[SlotSet("FirstName",res['message']['first_name']),SlotSet("MiddleName",res['message']['middle_name']),SlotSet("LastName",res['message']['last_name']),SlotSet("Suffix",res['message']['suffix']),SlotSet("DateOfBirth",res['message']['date']),SlotSet("SocialSecurityNo",res['message']['last_four_social']),SlotSet("ResidenceAddress",res['message']['residential_address']),SlotSet("Apt_unit1",res['message']['apt_unit1']),SlotSet("Address_nature",res['message']['address_nature']),SlotSet("isChecked",True),SlotSet("Program",res['message']['program'])]  
 		else:
-			#res = get_info(tracker.get_slot('userid'))
-			dispatcher.utter_message(text = "⚠️Attention! Review your inputs⚠️")
-			text = ("First Name : "+tracker.get_slot("FirstName") + '\n\n')
-			text += ("Middle Name/Initial : "+ tracker.get_slot("MiddleName") + '\n\n')
-			text += ("LastName : "+tracker.get_slot("LastName") + '\n\n')
-			text += ("Suffix : "+tracker.get_slot("Suffix") + '\n\n')
-			text += ("Date Of Birth : "+tracker.get_slot("DateOfBirth") + '\n\n')
-			text += ("SSN : "+tracker.get_slot("SocialSecurityNo") + '\n\n')
-			text += ("Resodence Address : "+tracker.get_slot("ResidenceAddress") + '\n\n')
-			text += ("Apartment/Floor/Other : "+tracker.get_slot("Apt_unit1") + '\n\n')
-			text += ("City : "+tracker.get_slot('ResidenceCity') + '\n\n')
-			text += ("State : " +tracker.get_slot('ResidenceState') + '\n\n')
-			text += ("ZipCode : "+tracker.get_slot('ResidenceZipCode') + '\n\n')
-			text+="Make sure to click `Continue Application` if all of your information is correct" 
-			buttons = [{"payload":"/affirm_edit","title":"Let me think"},
-					   {"payload":"/deny_edit","title":"Continue Application"}
-						]           
-			dispatcher.utter_message ( text = text, buttons = buttons)
+			dispatcher.utter_message(
+				response="utter_personal_info",
+				firstName = tracker.get_slot("FirstName"),
+				middleName = tracker.get_slot("MiddleName"),
+				lastName = tracker.get_slot("LastName"),
+				suffix = tracker.get_slot("Suffix"),
+				dateOfBirth = tracker.get_slot("DateOfBirth"),
+				socialSecurityNo = tracker.get_slot("SocialSecurityNo"),
+				residenceAddress = tracker.get_slot("ResidenceAddress"),
+				apt_unit1 = tracker.get_slot("Apt_unit1"),
+				residenceCity = tracker.get_slot('ResidenceCity'),
+				residenceState = tracker.get_slot('ResidenceState'),
+				residenceZipCode = tracker.get_slot('ResidenceZipCode')
+			)
 			return[]    
 
 class ActionEditPersonalInfoConfirm(Action):
@@ -222,7 +221,7 @@ class ActionEditPersonalInfoConfirm(Action):
 		return "edit_personal_info_confirm"
 	def run(self,dispatcher,tracker,domain):
 		message = tracker.latest_message['text']
-		if message=="/affirm_edit":
+		if message=="/affirm_edit" or message!="/deny_dit":
 			buttons = [{"payload":"/FirstName","title":"First Name"},
 					   {"payload":"/MiddleName","title":"Middle Name/Initial"},
 					   {"payload":"/LastName","title":"Last Name"},
@@ -237,7 +236,7 @@ class ActionEditPersonalInfoConfirm(Action):
 					]           
 			dispatcher.utter_message ( text = "What would you like to edit?", buttons = buttons)
 			return[]
-		else:
+		elif message == "/deny_edit":
 			return [FollowupAction("validate_name_address")]    
 
 class ActionEditPersonalInfoSelect(Action):

@@ -68,7 +68,12 @@ nlu:
   examples:  |
     - customer_restart
     - customer_restarts
-
+    - restart
+    - Restart
+    - re
+    - Re
+    - re start
+    
 - intent: affirm_tribal
   examples: |
     - affirm_tribal

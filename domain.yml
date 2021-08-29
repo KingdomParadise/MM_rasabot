@@ -72,6 +72,13 @@ responses:
   utter_goodbye:
   - text: "Bye"
 
+  utter_personal_info:
+  - text: "⚠️Attention! Review your inputs⚠️\n \nFirst Name : {firstName}\n \nMiddle Name/Initial : {middleName}\n \nLastName : {lastName}\n \nSuffix : {suffix}\n \nDate Of Birth : {dateOfBirth}\n \nSSN : {socialSecurityNo}\n \nResodence Address : {residenceAddress}\n \nApartment/Floor/Other : {apt_unit1}\n \nCity : {residenceCity}\n \nState : {residenceState}\n \nZipCode : {residenceZipCode}\n \nMake sure to click `Continue Application` if all of your information is correct"
+    buttons:
+    - title: "Let me think"
+      payload: "/affirm_edit"
+    - title: "Continue Application"
+      payload: "/deny_edit"
 
 slots:
   userid:
@@ -197,6 +204,7 @@ actions:
   - check_nv_select 
   - verify_check_nv_eligibility 
   - end_success
+  - initial
   - end_chat
 
 session_config:

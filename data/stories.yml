@@ -73,8 +73,13 @@ stories:
 - story: restart
   steps:
   - intent: customer_restart
+  - action: initial
   - action: utter_greet
-  
+  - intent: input_number
+  - action: validate_number 
+  - intent: input_email
+  - action: configuration
+   
 - story: help
   steps:
   - intent: customer_help
