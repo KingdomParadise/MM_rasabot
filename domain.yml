@@ -79,7 +79,65 @@ responses:
       payload: "/affirm_edit"
     - title: "Continue Application"
       payload: "/deny_edit"
-
+  utter_ask_edit_item:
+  - text: "What would you like to edit?" 
+    elements:
+    - title: page1
+      subtitle: Options 1 subtitle
+      buttons:
+      - title: "FirstName"
+        payload: "/FirstName"
+      - title: "Middle Name/Initial"  
+        payload: "/MiddleName"
+      - title: "Last Name"
+        payload: "/LastName"
+    - title: page2
+      subtitle: Options 2 subtitle
+      buttons:
+      - title: "Suffix"
+        payload: "/Suffix"
+      - title: "Date Of Birth"  
+        payload: "/DateOfBirth"
+      - title: "Social Security Number"
+        payload: "/SocialSecurityNo"   
+    - title: page3
+      subtitle: Options 3 subtitle
+      buttons:
+      - title: "Address"
+        payload: "/ResidenceAddress"
+      - title: "Apart"  
+        payload: "/Apt_unit1"
+    - title: page4
+      subtitle: Options 4 subtitle
+      buttons:
+      - title: "City"
+        payload: "/ResidenceCity"
+      - title: "state"  
+        payload: "/ResidenceState"
+      - title: "ZipCode"
+        payload: "/ResidenceZipCode"  
+  utter_select_adult:   
+  - text: "Other than a spouse or partner, do other adults (people over the age of 18 or emancipated minors) live with you at your address? If so, are they your:" 
+    elements:
+    - title: page1
+      subtitle: Options 1 subtitle
+      buttons:
+      - title: "Parent"
+        payload: "/parent"
+      - title: "Child(+18)"  
+        payload: "/child"
+      - title: "Other Adult Relative"
+        payload: "/otheradultrelative"   
+    - title: page2
+      subtitle: Options 2 subtitle
+      buttons:
+      - title: "Adult Roommate"
+        payload: "/adultroommate"
+      - title: "Other Adult"  
+        payload: "/otheradult"
+      - title: "No Adults"
+        payload: "/noadult"        
+             
 slots:
   userid:
     type: text

@@ -37,7 +37,11 @@ nlu:
 
 - intent: input_number
   examples: |
-    - [30134](number)
+    - zipcode is [30134](number)
+    - Zip Code is [30134](number)
+    - zip code is [30134](number)
+    - my zip code is [30134](number)
+
     - [3014](number)
     - [1234567890](number)
     - [234567](number)

@@ -20,7 +20,7 @@ class ActionInitial(Action):
 	def name(self):
 		return "initial"
 	def run(self,dispatcher,tracker,domain):
-		return[SlotSet("ResidenceZipCode",None),SlotSet("pin",None),SlotSet("phonenumber",None),SlotSet("income",None),SlotSet("edit_item",None),SlotSet("isemail",None)]	
+		return[SlotSet("ResidenceZipCode",None),SlotSet("pin",None),SlotSet("phonenumber",None),SlotSet("income",None),SlotSet("edit_item",None),SlotSet("isemail",None),SlotSet("email",None),SlotSet("userid",None)]	
 
 class ActionValidateNumber(Action):
 	def name(self):
@@ -42,9 +42,7 @@ class ActionValidateNumber(Action):
 
 		if zipcode==None:
 			zipcode = number
-			print("zipcode->",number)
 		elif zipcode!=None and income==None:
-			print("income->",income)
 			return[SlotSet("income",number),FollowupAction("provide_income_info")]
 		elif phonenumber==None:
 			return[SlotSet("phonenumber",number),FollowupAction("validate_number_code")]
@@ -102,11 +100,12 @@ class ActionConfiguration(Action):
 
 
 		if tracker.get_slot('userid')!=None:
+			userid = tracker.get_slot("userid")
 			buttons = [
 						{"payload": "/approve_continue", "title": "continue"},
 					] 
 			dispatcher.utter_message(text = "Please Complete Multi-page Web Form [www.multiwebform.com] (http://35.153.52.119:8000/submit_info/{})".format(userid),buttons=buttons)
-			return [SlotSet("userid",userid)]
+			return []
 
 		res = requests.post(check_avaliability_url, data={'Token':token,'ZipCode':zipcode,'Email':email}).json() 
 
@@ -222,19 +221,8 @@ class ActionEditPersonalInfoConfirm(Action):
 	def run(self,dispatcher,tracker,domain):
 		message = tracker.latest_message['text']
 		if message=="/affirm_edit" or message!="/deny_dit":
-			buttons = [{"payload":"/FirstName","title":"First Name"},
-					   {"payload":"/MiddleName","title":"Middle Name/Initial"},
-					   {"payload":"/LastName","title":"Last Name"},
-					   {"payload":"/Suffix","title":"Suffix"},
-					   {"payload":"/DateOfBirth","title":"Date Of Birth"},
-					   {"payload":"/SocialSecurityNo","title":"Social Security Number"},
-					   {"payload":"/ResidenceAddress","title":"Address"},
-					   {"payload":"/Apt_unit1","title":"Apart"},
-					   {"payload":"/ResidenceCity","title":"City"},
-					   {"payload":"/ResidenceState","title":"state"},
-					   {"payload":"/ResidenceZipCode","title":"ZipCode"},
-					]           
-			dispatcher.utter_message ( text = "What would you like to edit?", buttons = buttons)
+			           
+			dispatcher.utter_message ( response = "utter_ask_edit_item")
 			return[]
 		elif message == "/deny_edit":
 			return [FollowupAction("validate_name_address")]    
@@ -517,15 +505,8 @@ class ActionLifelineService(Action):
 			dispatcher.utter_message( text = "I'm Sorry 😥 You do not qualify to apply for Lifeline because someone in your household already gets the benefit.Each household is allowed to get only ONE Lifeline")
 			return [FollowupAction("end_chat")]
 		else:
-			buttons = [
-			{"payload":"/parent","title":"Parent"},
-			{"payload":"/child","title":"Child(+18)"},
-			{"payload":"/otheradultrelative","title":"Other Adult Relative"},
-			{"payload":"/adultroommate","title":"Adult Roommate"},
-			{"payload":"/otheradult","title":"Other Adult"},
-			{"payload":"/noadult","title":"No Adults"},
-			]
-			dispatcher.utter_message(text = "Other than a spouse or partner, do other adults (people over the age of 18 or emancipated minors) live with you at your address? If so, are they your:",buttons = buttons)
+			
+			dispatcher.utter_message(response = "utter_select_adult")
 			return []
 class ActionShareLivingExpenses(Action):
 	def name(self):
