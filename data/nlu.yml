@@ -37,14 +37,217 @@ nlu:
 
 - intent: input_number
   examples: |
-    - zipcode is [30134](number)
-    - Zip Code is [30134](number)
-    - zip code is [30134](number)
-    - my zip code is [30134](number)
+    - my zipcode is [94837](number)
+    - Zip Code is [58431](number)
+    - zip code is [92034](number)
+    - my zip code is [47689](number)
+    - my ZIPCODE is [49302](number)
+    - ZIPCODE is [20124](number)
+    - Zip Code is [05421](number)
+    - ZipCode is [03985](number)
+    - zipcode is [96594](number)
+    - [84356](number) is my zipcode
+    - [74543](number) is my Zip Code
+    - [62784](number) is my ZipCode
+    - [52365](number) is zipcode
+    - [32368](number) is Zip Code
+    - my zipcode [20498](number)
+    - zipcode [59607](number)
+    - zip code [38503](number)
+    - Zip Code [80495](number)
+    - ZipCode [02954](number)
+    - [49604](number) zipcode
+    - [70584](number) ZipCode
+    - [69404](number) my zipcode
+    - my zip is [94837](number)
+    - Zip is [58431](number)
+    - zip is [92034](number)
+    - my zip is [47689](number)
+    - my ZIP is [49302](number)
+    - ZIP is [20124](number)
+    - Zip is [05421](number)
+    - Zip is [03985](number)
+    - zip is [96594](number)
+    - [84356](number) is my zip
+    - [74543](number) is my Zip
+    - [62784](number) is my Zip
+    - [52365](number) is zip
+    - [32368](number) is Zip
+    - my zip [20498](number)
+    - zip [59607](number)
+    - zip [38503](number)
+    - Zip [80495](number)
+    - Zip [02954](number)
+    - [49604](number) zip
+    - [70584](number) Zip
+    - [69404](number) my zip
+    - my phonenumber is [4950386954](number)
+    - phonennumber is [4859673215](number)
+    - my phone number is [1029528593](number)
+    - my phone number [2984590456](number)
+    - phonenumber [3490698754](number)
+    - my Phone number is [4968649304](number)
+    - Phone Number is [5869749305](number)
+    - My Phonenumber is [6938594850](number)
+    - Phonenumber is [7839530945](number)
+    - Phone Number is [4950684596](number)
+    - Phone number [8900358596](number)
+    - Phonenumber [9023568574](number)
+    - Phone num is [3950694864](number)
+    - [4950386954](number) is my phonenumber
+    - [4859673215](number) is phonennumber
+    - [1029528593](number) is my phone number
+    - [2984590456](number) my phone number
+    - [3490698754](number) phonenumber
+    - [4968649304](number) is my Phone number
+    - [5869749305](number) is Phone Number
+    - [6938594850](number) is My Phonenumber
+    - [7839530945](number) is Phonenumber
+    - [4950684596](number) is Phone Number
+    - [8900358596](number) Phone number
+    - [9023568574](number) Phonenumber 
+    - [3950694864](number) is Phone num
+    - my phonenum is [4950386954](number)
+    - phonennum is [4859673215](number)
+    - my phone num is [1029528593](number)
+    - my phone num [2984590456](number)
+    - phonenum [3490698754](number)
+    - my Phone num is [4968649304](number)
+    - Phone Num is [5869749305](number)
+    - My Phonenum is [6938594850](number)
+    - Phonenum is [7839530945](number)
+    - Phone Num is [4950684596](number)
+    - Phone num [8900358596](number)
+    - Phonenum [9023568574](number)
+    - Phone num is [3950694864](number)
+    - [4950386954](number) is my phonenum
+    - [4859673215](number) is phonennum
+    - [1029528593](number) is my phone num
+    - [2984590456](number) my phone num
+    - [3490698754](number) phonenum
+    - [4968649304](number) is my Phone num
+    - [5869749305](number) is Phone Num
+    - [6938594850](number) is My Phonenum
+    - [7839530945](number) is Phonenum
+    - [4950684596](number) is Phone Num
+    - [8900358596](number) Phone num
+    - [9023568574](number) Phonenum
+    - [3950694864](number) is Phone num
+    - my phone is [4950386954](number)
+    - phonen is [4859673215](number)
+    - my phone is [1029528593](number)
+    - my phone [2984590456](number)
+    - phone [3490698754](number)
+    - my Phone is [4968649304](number)
+    - Phone is [5869749305](number)
+    - My Phone is [6938594850](number)
+    - Phone is [7839530945](number)
+    - Phone is [4950684596](number)
+    - Phone [8900358596](number)
+    - phone [9023568574](number)
+    - Phone is [3950694864](number)
+    - [4950386954](number) is my phone
+    - [4859673215](number) is phone
+    - [1029528593](number) is my phone
+    - [2984590456](number) my phone
+    - [3490698754](number) phone
+    - [4968649304](number) is my Phone
+    - [5869749305](number) is Phone
+    - [6938594850](number) is My Phone
+    - [7839530945](number) is Phone
+    - [4950684596](number) is PHONE
+    - [8900358596](number) Phone
+    - [9023568574](number) phone
+    - [3950694864](number) is Phone num
+    - my pincode is [3013](number)
+    - Pin Code is [5843](number)
+    - PIN code is [9203](number)
+    - my pin code is [4768](number)
+    - my PINCODE is [4930](number)
+    - PINCODE is [2012](number)
+    - Pin Code is [0542](number)
+    - PinCode is [0398](number)
+    - pincode is [9659](number)
+    - [8356](number) is my pincode
+    - [7443](number) is my Pin Code
+    - [6284](number) is my PINCode
+    - [5265](number) is pincode
+    - [3268](number) is Pin Code
+    - my pincode [2098](number)
+    - pincode [5607](number)
+    - pin code [3803](number)
+    - Pin Code [8095](number)
+    - PINCode [0254](number)
+    - [4604](number) pincode
+    - [7084](number) PinCode
+    - [6904](number) my pincode
+    - my pin is [3013](number)
+    - Pin is [5843](number)
+    - PIN is [9203](number)
+    - my pin is [4768](number)
+    - my PIN is [4930](number)
+    - PIN is [2012](number)
+    - Pin is [0542](number)
+    - Pin is [0398](number)
+    - pin is [9659](number)
+    - [8356](number) is my pin
+    - [7443](number) is my Pin
+    - [6284](number) is my PIN
+    - [5265](number) is pin
+    - [3268](number) is Pin
+    - my pin [2098](number)
+    - pin [5607](number)
+    - pin [3803](number)
+    - Pin [8095](number)
+    - PIN [0254](number)
+    - [4604](number) pin
+    - [7084](number) Pin
+    - [6904](number) my pin
+    - my income is [3013](number)
+    - Income is [58433432](number)
+    - INCOME is [92](number)
+    - my Income is [476](number)
+    - my INCOME is [4](number)
+    - INCOME is [201232](number)
+    - Income is [054](number)
+    - income is [03983](number)
+    - in come is [96](number)
+    - [835](number) is my income
+    - [7443](number) is my Income
+    - [62844](number) is my INCOME
+    - [526545](number) is income
+    - [3268646](number) is Income
+    - my income [209](number)
+    - income [5607](number)
+    - Income [38033](number)
+    - INCOME [8095534](number)
+    - in come [43864](number)
+    - [4604](number) income
+    - [70842](number) Income
+    - [690](number) my income
+
 
     - [3014](number)
     - [1234567890](number)
     - [234567](number)
+    - [3013454](number)
+    - [123434567890](number)
+    - [234234567](number)
+    - [3016344](number)
+    - [1233454567890](number)
+    - [23144567](number)
+    - [14](number)
+    - [123564567890](number)
+    - [234567](number)
+    - [314](number)
+    - [124567890](number)
+    - [234123567](number)
+    - [3013454](number)
+    - [128634567890](number)
+    - [23464567](number)
+    - [302414](number)
+    - [123454567890](number)
+    - [2346567](number)
 
 - regex: email
   examples: |
@@ -55,13 +258,9 @@ nlu:
     - email is the [denea1288@gmail.com](email)
     - [normanburtonfree@gmail.com](email) is the email
     - [denea1288@gmail.com](email)
-    - [vladislav@mail.com](email)
+    - [vladislav@mail.com](em ail)
     - [david@rasa.upwork.com](email)
 
-- intent: approve_continue
-  examples: |
-    - approve_continue
-    - approve_continues 
      
 - intent: customer_help
   examples:  |

@@ -66,6 +66,239 @@ responses:
   utter_greet:
   - text: "Hello!👋 I am a bot and I'm here to help. What is your Zip Code?"
 
+  utter_zipcode_sucess:
+  - text: "Great! That was a valid zip code! 🎉.Please enter your email address? (Ex: example@mail.com) 💬"
+  
+  utter_email_success:
+  - text: "Thank You! This will just take a few seconds You are on your way to a FREE phone!📱"
+ 
+  utter_zipcode_error:
+  - text: "That Zip Code was not valid. Please enter a valid zip code." 
+ 
+  utter_email_error:
+  - text: "That email address was not valid. Please enter a working email address. (Ex: example@mail.com)"
+
+  utter_multi_webform:
+  - text: "Please Complete Multi-page Web Form [www.multiwebform.com] (http://127.0.0.1:8000/submit_info/{userid})"
+    buttons:
+    - title: "Continue"
+      payload: "/approve_continue"
+
+  utter_zipcode_service_error:
+  - text: "Sorry! We currently do not offer any service plans for the {zipcode} area."  
+    buttons:
+    - title: "Please Restart"
+      payload: "/customer_restart"
+  
+  utter_system_trouble:
+  - text: "Oh no! Our system is having trouble with your application"
+    buttons:
+    - title: "Please Restart"
+      payload: "/customer_restart"
+    - title: "Please Help me"
+      payload: "/customer_help"
+
+  utter_trouble_request:
+  - text: "Oh no! Our system is having trouble with your request"
+    buttons:
+    - title: "Please Help me"
+      payload: "/customer_help"
+  
+  utter_trouble_application:
+  - text: "Oh no! We are having trouble processing your application"
+    buttons:
+    - title: "Please Help me"
+      payload: "/customer_help"
+
+  utter_tribal_lands:
+  - text: "Do you reside on Federally-recognized Tribal lands?"
+    buttons:
+    - title: "Yes"
+      payload: "/affirm_tribal"
+    - title: "No"
+      payload: "/deny_tribal" 
+
+  utter_edit_item:
+  - text: "Please write the {item}"
+
+  utter_fcra_display:
+  - text: "FcraDisclosureText: \n \n{FcraDisclosureText}\n \n FcraAdditionalDisclosureText: \n \n {FcraAdditionalDisclosureText}\n \n FcraAcknowledgement: \n \n {FcraAcknowledgement}"
+    buttons:
+    - title: "I agree with them"
+      payload: "/affirm_fcra"
+
+  utter_cgm_invalid:
+  - text: "Your information did not pass out checks!"  
+
+  utter_cgm_validation_error:
+  - text: "Oh no! WE couldn't validate your information. {error} . Please correct the error"  
+  
+  utter_offer_coverage:
+  - text: "Sorry! We do not currently offer coverage in your area"
+
+  utter_lifeline_plan_error:
+  - text: "Oh no! We could not find any plans that you qualify for."
+    buttons:
+    - title: "Please Help me"
+      payload: "/customer_help"
+
+  utter_language_es:
+  - text: "What language do you perfer to speak? 😊"
+    buttons:
+    - title: "English"
+      payload: "/English"
+    - title: "Spanish"
+      payload: "/Spanish"
+    - title: "More"
+      payload: "/More"  
+
+  utter_language_ck:
+  - text: "More Options"
+    buttons:
+    - title: "Chinese"
+      payload: "/Chinese"
+    - title: "Korean"
+      payload: "/Korean"
+    - title: "More"
+      payload: "/More_CK"    
+
+  utter_language_jv:
+  - text: "More Options"
+    buttons:
+    - title: "Japanese"
+      payload: "/Japanese"
+    - title: "Vietnamese"
+      payload: "/Vietnamese"
+
+  utter_notification:
+  - text: "Do you prefer standard print, or LARGE PRINT notifications? Contact Access Wireless Customer Service directly if you would like to receive future communications from the California LifeLine Administrator in Braille."
+
+  utter_national_verifier:
+  - text: "Your application is still being processed by the National verifier! Click here to check its status."
+    buttons:
+    - title: "Check Status"
+      payload: "/check_status"
+  utter_wireless:
+  - text: "We noticed that you are already receiving a  Lifeline benefit from another provider. Would you like to transfer your service provider to Access Wireless? 😊"
+    buttons:
+    - title: "Yes"
+      payload: "/affirm_application_status"  
+    - title: "No"
+      payload: "/deny_application_status"            
+
+  utter_sad:
+  - text: "😥 We're sad to see you go!"
+
+  utter_happy:
+  - text: "Great! We're glad to have you 🤩"
+
+  utter_disclosure_webapp:
+  - text: "Disclosure Web App [www.disclosure.com] (http://127.0.0.1:8000/start/{userid})"
+    buttons:
+    - title: "Continue"
+      payload: "/disclosure_continue"
+
+  utter_ieh_select:
+  - text:  "Does your spouse or domestic partner live with you AND already receive LifeLine phone service? Select NO if you do not have a spouse or partner.Select NO if your spouse or partner does not live with you.Select NO if your spouse or partner does not receive lifeline phone service?"
+    buttons:
+    - title: "Yes"
+      payload: "/affirm_disclosure"
+    - title: "No"
+      payload: "/deny_disclosure"
+
+  utter_affirm_disclosure:
+  - text: "I'm Sorry 😥 You do not qualify to apply for Lifeline because someone in your household already gets the benefit.Each household is allowed to get only ONE Lifeline"
+
+  utter_share_live:
+  - text: "Do you share living expenses (bills, food, etc.) and share income (either your income, their income, or both incomes together) with the adult you listed above? 🏠💵"
+    buttons:
+    - title: "Yes"
+      payload: "/affirm_share_expenses"
+    - title: "No"
+      payload: "/deny_share_expenses"  
+
+  utter_relation_ship:
+  - text: "Please specify:What is their relationship to you?"
+
+  utter_apply_lifeline:
+  - text: "YES! You qualify to apply for Lifeline!🎉😁🎉"
+
+  utter_deny_lifeline:
+  - text: "I'm Sorry 😥 You do not qualify to apply for Lifeline because someone in your household already gets the benefit.Each household is allowed to get only ONE Lifeline"
+
+  utter_income:
+  - text: "To continue we'll need to verify some of your income information💲\n \n What dollar amount is on your income proof?\n \n Please upload your proof of income 📰"
+
+  utter_best_way:
+  - text: "What is the best way to reach you? Click one of the options below"
+    buttons:
+    - title: "Phone"
+      payload: "/Phone"
+    - title: "Email"
+      payload: "/Email"
+    - title: "Mail"
+      payload: "/Mail"
+
+  utter_phone_number:
+  - text: "What is your phone number? 📱It can look like this: 5417901356"
+
+  utter_wrong_phone_number:
+  - text: "wrong phone number, please enter the phone number again! - 10 digits"
+
+  utter_pin_code:
+  - text: "Please make a four digit PIN for your application(ex:like 1002)"
+
+  utter_wrong_pin_code:
+  - text:  "wrong pin code, please enter the pin code again! - 4 digits"
+
+  utter_offer_faild:
+  - text: "Oh no! Your order failed: How would you like to proceed?"
+    buttons:
+    - title: "Please Restart"
+      payload: "/customer_restart"
+    - title: "Please Help me"
+      payload: "/customer_help"
+
+  utter_more_income:
+  - text: "Do you have more income information to provide?"
+    buttons:
+    - title: "Yes"
+      payload: "/affirm_income"
+    - title: "No"
+      payload: "deny_income"   
+
+  utter_pending_offer:
+  - text: "We've filled out most of your application in the National Verifier with the information you provided. \n \nTo proceed, you'll need to confirm some of your information at the National Verifier's website.\n \nClick below ⬇ When you've completed your application, you will be finished enrolling! You have 7 minutes before this link expires"
+
+  utter_generate_new_link:
+  - text: "[www.eligibilty.com]({url})"
+    buttons:
+    - title: "Continue"
+      payload: "/generate_new_link"
+
+  utter_pending_national:
+  - text: "Your Application is Pending National Verifier Review. Click here to check the status"
+    buttons:
+    - title: "Continue"
+      payload: "/continue_pending"
+
+  utter_reject_national:
+  - text: "Oh no! Your request was reject by the National Verifier."
+    buttons:
+    - title: "Please Help me"
+      payload: "/customer_help"
+
+  utter_get_lifeline_success:
+  - text: "Here is a filled out copy of your application!"
+
+  utter_national_verifier_error:
+  - text: "Oh no! Your application was not completed in the National Verifier"
+    buttons:
+    - title: "Please Help me"
+      payload: "/customer_help"
+
+  utter_success:
+  - text: "Congratulations! 😍 Your application is complete!Thank you for choosing Access Wireless.Your order number is: {ordernum} We will contact you when your applications has been finalized. Get your friends and family FREE phone and service by sharing this link: http://m.me/accesswirelesslifeline"
   utter_help:
   - text: "An agent will reach out shortly! Thank you for your patience."
 
@@ -82,8 +315,7 @@ responses:
   utter_ask_edit_item:
   - text: "What would you like to edit?" 
     elements:
-    - title: page1
-      subtitle: Options 1 subtitle
+    - title: "Option1"
       buttons:
       - title: "FirstName"
         payload: "/FirstName"
@@ -91,8 +323,7 @@ responses:
         payload: "/MiddleName"
       - title: "Last Name"
         payload: "/LastName"
-    - title: page2
-      subtitle: Options 2 subtitle
+    - title: "Option2"
       buttons:
       - title: "Suffix"
         payload: "/Suffix"
@@ -100,18 +331,16 @@ responses:
         payload: "/DateOfBirth"
       - title: "Social Security Number"
         payload: "/SocialSecurityNo"   
-    - title: page3
-      subtitle: Options 3 subtitle
+    - title: "Option3"
       buttons:
       - title: "Address"
         payload: "/ResidenceAddress"
       - title: "Apart"  
         payload: "/Apt_unit1"
-    - title: page4
-      subtitle: Options 4 subtitle
-      buttons:
       - title: "City"
         payload: "/ResidenceCity"
+    - title: "Option4"
+      buttons:
       - title: "state"  
         payload: "/ResidenceState"
       - title: "ZipCode"
@@ -119,8 +348,7 @@ responses:
   utter_select_adult:   
   - text: "Other than a spouse or partner, do other adults (people over the age of 18 or emancipated minors) live with you at your address? If so, are they your:" 
     elements:
-    - title: page1
-      subtitle: Options 1 subtitle
+    - title: 
       buttons:
       - title: "Parent"
         payload: "/parent"
@@ -128,8 +356,7 @@ responses:
         payload: "/child"
       - title: "Other Adult Relative"
         payload: "/otheradultrelative"   
-    - title: page2
-      subtitle: Options 2 subtitle
+    - title: 
       buttons:
       - title: "Adult Roommate"
         payload: "/adultroommate"

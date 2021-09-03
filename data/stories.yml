@@ -5,18 +5,14 @@ stories:
 - story: chatbot
   steps:
   - intent: greet
-  - action: utter_greet
+  - action: initial
   - intent: input_number
   - action: validate_number
   - intent: input_email
   - action: validate_email
   - action: configuration
-  - intent: approve_continue
   - action: set_tribal_resident
-  - or:
-    - intent: affirm_tribal
-    - intent: deny_tribal
-  - action: action_approve_offer_tribal
+  - intent: wall
   - action: edit_personal_info_check  
   - intent: deny_edit
   - action: validate_name_address
@@ -55,7 +51,13 @@ stories:
   - action: end_success
   - action: end_chat
 
-
+- story: approve_tribal
+  steps:
+  - or:
+    - intent: affirm_tribal
+    - intent: deny_tribal
+  - action: action_approve_offer_tribal
+  
 - story: input_pincode_phonenumber
   steps:
   - action: submit_order
@@ -66,6 +68,7 @@ stories:
   - action: select_best_way
   - intent: input_number
   - action: validate_number
+  - intent: wall
   - action: validate_number_code
   - intent: wall 
 
@@ -74,11 +77,7 @@ stories:
   steps:
   - intent: customer_restart
   - action: initial
-  - action: utter_greet
-  - intent: input_number
-  - action: validate_number 
-  - intent: input_email
-  - action: configuration
+
    
 - story: help
   steps:
@@ -100,6 +99,7 @@ stories:
   - action: submit_order
   - intent: input_number
   - action: validate_number
+  - intent: wall
   - action: provide_income_info
   - or:
     - intent: affirm_income
@@ -139,7 +139,7 @@ stories:
 
 - story: edit_personal_info
   steps:
-  - action: edit_personal_info_check
+  #- action: edit_personal_info_check
   - intent: affirm_edit
   - action: edit_personal_info_confirm
   - or:

@@ -1,14 +1,17 @@
 import requests
 def get_info(userid,token,PackageId,ResidenceState,TribalResident,EligibiltyPrograms):
-	url = 'http://35.153.52.119:8000/get_info/{}/{}/{}/{}/{}/{}'.format(userid,token,PackageId,ResidenceState,TribalResident,EligibiltyPrograms)
+	url = 'https://f702-5-61-61-227.ngrok.io/get_info/{}/{}/{}/{}/{}/{}'.format(userid,token,PackageId,ResidenceState,TribalResident,EligibiltyPrograms)
 	res = requests.get(url).json()
 	return res
 
 def get_ieh(userid):
-	url = 'http://35.153.52.119:8000/get_ieh/{}'.format(userid)
+	url = 'https://f702-5-61-61-227.ngrok.io/get_ieh/{}'.format(userid)
 	res = requests.get(url).json()
 	return res
-
+def check_multi_webform(userid):
+	url = 'https://f702-5-61-61-227.ngrok.io/confirm/{}'.format(userid)
+	res = requests.get(url).json()
+	return res
 def validate_name_address(first_name,last_name,date,social,EligibiltyPrograms,Address,ResidenceCity,ResidenceState,ResidenceZip,PackageId,ReservationVendorCode,ReservationClientCode,ReservationUserCode):
 	validate_name_address_url = ' https://lifeline.cgmllc.net/api/v2/validatenameaddress'
 	data = {
